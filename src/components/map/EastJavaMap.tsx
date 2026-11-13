@@ -91,22 +91,17 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
   };
 
   return (
-    <div className="flex flex-col border-t border-b border-[var(--border-hairline)] bg-[var(--bg-surface)] rounded-lg overflow-hidden">
-      {/* Map Header Controls */}
-      <div className="px-4 py-3 border-b border-[var(--border-hairline)] flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-[#004c97] dark:text-[#2d8cff]" />
-          <span className="text-xs font-sub font-semibold text-zinc-900 dark:text-zinc-100">
-            Peta Topologi Spasial Jawa Timur (WGS84 · Matriks OSRM 920×920)
+    <div className="flex flex-col border-t border-b border-[var(--border-hairline)] bg-[var(--bg-surface)]">
+      {/* Stable Map Header Controls — NEVER resizes or wraps on hover */}
+      <div className="px-4 py-3 border-b border-[var(--border-hairline)] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="flex items-center gap-2 shrink-0">
+          <Layers className="w-4 h-4 text-[var(--accent-blue)] shrink-0" />
+          <span className="text-xs font-sub font-semibold text-[var(--text-primary)]">
+            Peta Jaringan Distribusi BBM Jawa Timur
           </span>
-          {hoverLabel && (
-            <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-[11px] font-sub text-zinc-700 dark:text-zinc-300">
-              {hoverLabel}
-            </span>
-          )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5 shrink-0">
           {[
             { key: 'spbus' as const, label: '920 SPBU' },
             { key: 'bottlenecks' as const, label: '18 Bottleneck' },
@@ -118,10 +113,10 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
               key={item.key}
               onClick={() => setLayers((prev) => ({ ...prev, [item.key]: !prev[item.key] }))}
               className={cn(
-                'px-2.5 py-1 rounded-full text-[11px] font-sub font-medium border transition-colors',
+                'px-2.5 py-1 rounded text-[11px] font-sub font-semibold border transition-colors whitespace-nowrap',
                 layers[item.key]
-                  ? 'bg-[#004c97]/10 text-[#004c97] border-[#004c97]/30 dark:bg-[#2d8cff]/15 dark:text-[#2d8cff] dark:border-[#2d8cff]/35'
-                  : 'bg-transparent text-zinc-500 border-[var(--border-hairline)]'
+                  ? 'bg-[var(--accent-blue)]/12 text-[var(--accent-blue)] border-[var(--accent-blue)]/35'
+                  : 'bg-transparent text-[var(--text-muted)] border-[var(--border-hairline)]'
               )}
             >
               {item.label}
@@ -132,7 +127,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
 
       {/* SVG Map Canvas */}
       <div
-        className="relative bg-[#efece4]/55 dark:bg-[#0b0d10] overflow-hidden select-none cursor-grab active:cursor-grabbing"
+        className="relative bg-[var(--bg-subtle)]/55 dark:bg-[#0b0d10] overflow-hidden select-none cursor-grab active:cursor-grabbing"
         onMouseDown={(e) => setDragging({ x: e.clientX - pan.x, y: e.clientY - pan.y })}
         onMouseMove={(e) => {
           if (dragging) {
@@ -142,7 +137,14 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
         onMouseUp={() => setDragging(null)}
         onMouseLeave={() => setDragging(null)}
       >
-        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-[380px] sm:h-[440px] block">
+        {/* Fixed Non-Shifting Hover HUD Overlay */}
+        <div className="pointer-events-none absolute top-3 left-3 z-10 max-w-[85%] px-3 py-1.5 rounded bg-[var(--bg-surface)]/92 border border-[var(--border-hairline)] text-[11px] font-sub text-[var(--text-primary)] shadow-sm truncate">
+          {hoverLabel
+            ? hoverLabel
+            : 'Arahkan kursor atau klik kota/kabupaten, TBBM, atau SPBU di peta'}
+        </div>
+
+        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-[380px] sm:h-[450px] block">
           <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`} style={{ transformOrigin: 'center' }}>
             {/* 38 Kab/Kota Polygons */}
             {jatimPolygons.features.map((feat, idx) => {

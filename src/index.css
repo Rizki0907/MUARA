@@ -4,29 +4,37 @@
 
 @layer base {
   :root {
-    --bg-canvas: #f7f6f2;
+    --bg-canvas: #f6f4ee;
     --bg-surface: #ffffff;
-    --bg-band: #efece4;
+    --bg-subtle: #eeebe2;
+    --bg-band: #eae6db;
+    --bg-spotlight: #0b1c36;
+    --text-on-spotlight: #f8fafc;
     --border-hairline: #e2dfd5;
+    --border-strong: #c9c4b5;
     --text-primary: #111317;
-    --text-secondary: #454a54;
-    --text-muted: #6b7280;
+    --text-secondary: #3f444e;
+    --text-muted: #5c626e;
     --accent-blue: #004c97;
-    --accent-green: #15803d;
-    --accent-red: #c81e1e;
+    --accent-green: #147a3a;
+    --accent-red: #c41d1d;
   }
 
   .dark {
-    --bg-canvas: #0b0d10;
-    --bg-surface: #12161c;
-    --bg-band: #161b22;
-    --border-hairline: #232933;
+    --bg-canvas: #090b0e;
+    --bg-surface: #11151b;
+    --bg-subtle: #181e27;
+    --bg-band: #141921;
+    --bg-spotlight: #131c2b;
+    --text-on-spotlight: #f3f4f6;
+    --border-hairline: #222833;
+    --border-strong: #353e4d;
     --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --text-muted: #6b7280;
-    --accent-blue: #2d8cff;
-    --accent-green: #22c55e;
-    --accent-red: #f43f5e;
+    --text-secondary: #b4bcc8;
+    --text-muted: #848e9c;
+    --accent-blue: #3b96ff;
+    --accent-green: #26c964;
+    --accent-red: #f64b68;
   }
 
   html {
@@ -47,7 +55,7 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Alias tabular-nums tetap memakai Font 2 agar tetap hanya 3 font di seluruh web */
+  /* Alias tabular-nums tetap memakai Font 2 agar sistem konsisten tepat 3 font */
   .font-mono-num {
     font-family: 'Space Grotesk', sans-serif;
     font-variant-numeric: tabular-nums;

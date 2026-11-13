@@ -52,6 +52,11 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
     [sourceSpbu, beta, gamma, shockFactor]
   );
 
+  const affectedCriticalCount = useMemo(
+    () => huffResults.filter((r) => r.postSpilloverTtdHr <= 12).length,
+    [huffResults]
+  );
+
   const stationIds = useMemo(() => Object.keys(simulationBundle.stations), []);
   const [simStationId, setSimStationId] = useState(stationIds[0] ?? 'SPBU_0001');
 
@@ -79,14 +84,14 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
   const clusterCols: ColumnDef<ClusterRanking>[] = [
     {
       key: 'Rank',
-      header: 'Rank',
+      header: 'Urutan',
       align: 'center',
       sortValue: (r) => r.Rank,
       render: (r) => <span className="font-mono-num text-[var(--text-muted)]">#{r.Rank}</span>,
     },
     {
       key: 'name',
-      header: 'Kluster HDBSCAN (38)',
+      header: 'Zona Penyangga (38 Kluster)',
       sortValue: (r) => r.cluster_name,
       render: (r) => (
         <div>
@@ -97,7 +102,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
     },
     {
       key: 'tier',
-      header: 'Tier',
+      header: 'Tingkat Risiko',
       render: (r) => (
         <Badge
           variant={
@@ -116,34 +121,34 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
     },
     {
       key: 'score',
-      header: 'MUARA Score',
+      header: 'Skor Risiko',
       align: 'right',
       sortValue: (r) => r.MUARA_Score,
       render: (r) => <span className="font-mono-num font-bold">{r.MUARA_Score.toFixed(2)}</span>,
     },
     {
       key: 'spbu_count',
-      header: 'SPBU',
+      header: 'Jumlah SPBU',
       align: 'right',
       sortValue: (r) => r.spbu_count,
       render: (r) => <span className="font-mono-num">{r.spbu_count}</span>,
     },
     {
       key: 'tbbm',
-      header: 'TBBM Utama',
+      header: 'Terminal Pemasok',
       sortValue: (r) => r.primary_tbbm_name,
       render: (r) => <span className="text-xs text-[var(--text-secondary)]">{r.primary_tbbm_name}</span>,
     },
     {
       key: 'mean_ttd_hr',
-      header: 'Mean TTD',
+      header: 'Rata-rata Sisa Jam',
       align: 'right',
       sortValue: (r) => r.mean_ttd_hr,
       render: (r) => <span className="font-mono-num">{r.mean_ttd_hr.toFixed(2)} jam</span>,
     },
     {
       key: 'cascading',
-      header: 'Baseline Domino',
+      header: 'Durasi Domino (30h)',
       align: 'right',
       sortValue: (r) => r.baseline_cascading_hrs_30d,
       render: (r) => (
@@ -157,7 +162,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
   const bottleneckCols: ColumnDef<IsolatedBottleneck>[] = [
     {
       key: 'spbu_id',
-      header: 'ID SPBU (-1)',
+      header: 'Kode SPBU',
       sortValue: (r) => r.spbu_id,
       render: (r) => (
         <span className="font-mono-num text-[var(--accent-red)] font-semibold">{r.spbu_id}</span>
@@ -165,20 +170,20 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
     },
     {
       key: 'name',
-      header: 'Nama SPBU & Kab/Kota',
+      header: 'Nama SPBU & Wilayah',
       sortValue: (r) => r.name,
       render: (r) => (
         <div>
           <div className="font-medium text-[var(--text-primary)]">{r.name}</div>
           <div className="text-[11px] text-[var(--text-muted)]">
-            {r.kabkota_name} · Kelas {r.road_class}
+            {r.kabkota_name} · Jalan {r.road_class}
           </div>
         </div>
       ),
     },
     {
       key: 'tbbm',
-      header: 'TBBM & Jarak',
+      header: 'Depot & Jarak Tempuh',
       sortValue: (r) => r.dist_to_tbbm_km,
       render: (r) => (
         <span className="font-mono-num">
@@ -188,7 +193,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
     },
     {
       key: 'cap',
-      header: 'Tangki / Demand',
+      header: 'Tangki / Penjualan Harian',
       align: 'right',
       sortValue: (r) => r.tank_capacity_kl,
       render: (r) => (
@@ -199,88 +204,87 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
     },
     {
       key: 'buffer',
-      header: 'Proteksi Buffer',
+      header: 'Proteksi Cadangan',
       align: 'right',
       render: (r) => (
-        <Badge variant="red">{(r.safety_stock_buffer_pct * 100).toFixed(0)}% (+20%)</Badge>
+        <Badge variant="red">{(r.safety_stock_buffer_pct * 100).toFixed(0)}% (+20% Ekstra)</Badge>
       ),
     },
   ];
 
   return (
     <div className="w-full">
-      {/* BAND 1: EDITORIAL FRAMING + PERTAMINA NOZZLE FIELD PHOTO */}
+      {/* BAND 1: EDITORIAL FRAMING + PERTAMINA NOZZLE PHOTO */}
       <section className="border-b border-[var(--border-hairline)] bg-[var(--bg-surface)]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7 space-y-5">
               <Reveal>
                 <EditorialHeader
-                  eyebrow="Modul 01 & 02 · Spillover & Klasterisasi Spasial"
-                  title="Dinamika Gravitasi Antrean & Kontainmen Domino BBM Subsidi"
-                  description="Ketika satu SPBU kehabisan Pertalite (JBKP) maupun Biosolar (JBT), pengendara bermigrasi ke SPBU terdekat berkapasitas besar. MUARA mengukur daya hisap migrasi itu menggunakan Modified Huff Spillover lalu menyekatnya dalam 38 kluster penyangga HDBSCAN."
+                  eyebrow="Simulasi Kelangkaan & Penyebaran Antrean"
+                  title="Bagaimana Satu SPBU Kosong Menguras Tangki SPBU di Sekitarnya?"
+                  description="Ketika satu SPBU kehabisan Pertalite atau Biosolar, pengendara berpindah ke SPBU terdekat berkapasitas besar. Di halaman ini Anda dapat mensimulasikan seberapa cepat efek domino tersebut terjadi dan bagaimana 38 zona penyangga HDBSCAN menahannya."
                   accent="red"
                 />
               </Reveal>
 
-              {/* Hairline formula + empirical clustering metrics */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 pt-4 border-t border-[var(--border-hairline)]">
                 <div>
                   <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                    Road Silhouette
+                    Kualitas Klaster
                   </div>
                   <div className="font-mono-num text-2xl font-bold text-[var(--accent-blue)] mt-1">
                     0,678
                   </div>
-                  <div className="text-[11px] text-[var(--text-muted)]">DBI 0,624</div>
+                  <div className="text-[11px] text-[var(--text-muted)]">Road Silhouette (DBI 0,624)</div>
                 </div>
                 <div>
                   <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                    Spillover Containment
+                    Limpahan Tertahan
                   </div>
                   <div className="font-mono-num text-2xl font-bold text-[var(--accent-green)] mt-1">
                     94,2%
                   </div>
-                  <div className="text-[11px] text-[var(--text-muted)]">k_min = 6 · EoM</div>
+                  <div className="text-[11px] text-[var(--text-muted)]">Dalam 38 zona penyangga</div>
                 </div>
                 <div>
                   <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                    Parameter Huff (alpha/beta/gamma)
+                    Porsi Warga Pindah
                   </div>
-                  <div className="font-mono-num text-xl font-bold text-[var(--text-primary)] mt-1">
-                    1,0 / 0,35 / 0,82
+                  <div className="font-mono-num text-2xl font-bold text-[var(--text-primary)] mt-1">
+                    82%
                   </div>
-                  <div className="text-[11px] text-[var(--text-muted)]">Peluruhan per menit</div>
+                  <div className="text-[11px] text-[var(--text-muted)]">gamma = 0,82 (beta = 0,35)</div>
                 </div>
                 <div>
                   <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                    Proteksi Outlier (-1)
+                    SPBU Terpencil
                   </div>
                   <div className="font-mono-num text-2xl font-bold text-[var(--accent-red)] mt-1">
-                    18 SPBU
+                    18 lokasi
                   </div>
-                  <div className="text-[11px] text-[var(--text-muted)]">Buffer +20% (30%)</div>
+                  <div className="text-[11px] text-[var(--text-muted)]">Buffer +20% (reorder 30%)</div>
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-5">
-              <figure className="relative overflow-hidden rounded-lg border border-[var(--border-hairline)] bg-[var(--bg-subtle)]">
+              <figure className="relative overflow-hidden border border-[var(--border-hairline)] bg-[var(--bg-subtle)]">
                 <div className="aspect-[16/10] w-full overflow-hidden">
                   <img
                     src="/images/pertamina-nozzle.jpg"
-                    alt="Dispenser dan nozzle pengisian BBM Pertamina di lapangan"
+                    alt="Dispenser dan nozzle pengisian Pertalite JBKP dan Biosolar JBT di SPBU Pertamina"
                     className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent pointer-events-none" />
                 <figcaption className="absolute bottom-0 inset-x-0 p-4 text-white">
                   <div className="text-[10px] font-sub uppercase tracking-[0.14em] text-white/80 mb-1">
-                    Proteksi JBKP &amp; JBT Lintas Koridor
+                    Insight Utama
                   </div>
                   <p className="text-xs leading-snug">
-                    Simulasi Modified Huff memperkirakan perpindahan beban per jam agar tangki
-                    pendam tetangga diisi sebelum menyentuh batas minimum.
+                    Antrean tidak berhenti saat tangki kosong—melainkan tumpah ke SPBU tetangga.
+                    MUARA mengisi SPBU tetangga lebih dulu sebelum limpahan itu menghabiskannya.
                   </p>
                 </figcaption>
               </figure>
@@ -289,30 +293,29 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
         </div>
       </section>
 
-      {/* BAND 2: INTERACTIVE MODIFIED HUFF SPILLOVER SIMULATOR */}
+      {/* BAND 2: INTERACTIVE MODIFIED HUFF SIMULATOR */}
       <section className="border-b border-[var(--border-hairline)] bg-[var(--bg-canvas)]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[var(--border-hairline)]">
             <EditorialHeader
-              eyebrow="Eksperimen Gravitasi Interaktif"
-              title="Simulator Migrasi Permintaan & Penurunan Time-to-Depletion (TTD)"
-              description="Pilih satu SPBU sumber gangguan, atur sensitivitas jarak tempuh (beta), fraksi pengendara yang beralih (gamma), serta eskalasi shock permintaan."
+              eyebrow="Simulasi Interaktif"
+              title="Uji Dampak Jika Satu SPBU Kehabisan Stok"
+              description="Pilih satu SPBU bermasalah di bawah, lalu geser tiga pengaturan untuk melihat SPBU mana di sekitarnya yang akan kebanjiran pembeli dan seberapa cepat tangkinya menyusut."
             />
             <button
               onClick={() => onInspectMap({ type: 'spbu', data: sourceSpbu })}
               className="inline-flex items-center gap-1.5 text-xs font-sub font-semibold text-[var(--accent-blue)] hover:underline shrink-0"
             >
-              Sorot {sourceSpbu.id} di Peta Overview
+              Tampilkan {sourceSpbu.id} di Peta Utama
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 pt-8">
-            {/* Left Parameter Controls */}
             <div className="xl:col-span-4 space-y-6 xl:border-r border-[var(--border-hairline)] xl:pr-8">
               <div>
-                <label className="text-[11px] font-sub uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">
-                  SPBU Sumber Gangguan / Stockout
+                <label className="text-[11px] font-sub font-semibold uppercase tracking-wider text-[var(--text-primary)] block mb-1.5">
+                  1. Pilih SPBU yang Mengalami Kekosongan
                 </label>
                 <select
                   value={selectedSpbuId}
@@ -325,24 +328,23 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                     </option>
                   ))}
                 </select>
-                <div className="mt-2.5 flex flex-wrap items-center gap-2 text-[11px] font-mono-num text-[var(--text-secondary)]">
-                  <span>Kluster {sourceSpbu.cl}</span>
-                  <span>·</span>
-                  <span>Peak {(sourceSpbu.dPeak / 24).toFixed(2)} KL/jam</span>
-                  <span>·</span>
-                  <span>{sourceSpbu.nbrs} tetangga &lt;=15 mnt</span>
-                </div>
+                <p className="mt-2 text-[11px] text-[var(--text-muted)]">
+                  Zona <strong className="text-[var(--text-primary)]">{sourceSpbu.cl}</strong> ·
+                  Kebutuhan puncak{' '}
+                  <span className="font-mono-num">{(sourceSpbu.dPeak / 24).toFixed(2)} KL/jam</span>{' '}
+                  · Ada {sourceSpbu.nbrs} SPBU lain dalam radius 15 menit.
+                </p>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-[var(--border-hairline)]">
+              <div className="space-y-5 pt-4 border-t border-[var(--border-hairline)]">
                 <div>
-                  <div className="flex justify-between text-xs mb-1.5">
-                    <span className="font-sub text-[var(--text-secondary)] inline-flex items-center gap-1.5">
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="font-sub font-semibold text-[var(--text-primary)] inline-flex items-center gap-1.5">
                       <Sliders className="w-3.5 h-3.5 text-[var(--accent-blue)]" />
-                      Sensitivitas Jarak Waktu (beta)
+                      Enggan Pergi Jauh (beta)
                     </span>
                     <span className="font-mono-num font-bold text-[var(--accent-blue)]">
-                      {beta.toFixed(2)} mnt^-1
+                      {beta.toFixed(2)}
                     </span>
                   </div>
                   <input
@@ -354,13 +356,16 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                     onChange={(e) => setBeta(parseFloat(e.target.value))}
                     className="w-full accent-blue-600"
                   />
+                  <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+                    Semakin tinggi angkanya, warga hanya mau pindah ke SPBU paling dekat saja.
+                  </p>
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-xs mb-1.5">
-                    <span className="font-sub text-[var(--text-secondary)] inline-flex items-center gap-1.5">
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="font-sub font-semibold text-[var(--text-primary)] inline-flex items-center gap-1.5">
                       <Flame className="w-3.5 h-3.5 text-[var(--accent-red)]" />
-                      Fraksi Migrasi Antrean (gamma)
+                      Persentase Warga yang Pindah (gamma)
                     </span>
                     <span className="font-mono-num font-bold text-[var(--accent-red)]">
                       {(gamma * 100).toFixed(0)}%
@@ -375,12 +380,15 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                     onChange={(e) => setGamma(parseFloat(e.target.value))}
                     className="w-full accent-red-600"
                   />
+                  <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+                    Berapa persen pembeli dari SPBU kosong yang langsung mengantre ke sebelah.
+                  </p>
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-xs mb-1.5">
-                    <span className="font-sub text-[var(--text-secondary)]">
-                      Pengali Lonjakan Permintaan
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="font-sub font-semibold text-[var(--text-primary)]">
+                      Kenaikan Keramaian / Shock Harian
                     </span>
                     <span className="font-mono-num font-bold text-amber-600 dark:text-amber-400">
                       {shockFactor.toFixed(2)}x
@@ -395,30 +403,34 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                     onChange={(e) => setShockFactor(parseFloat(e.target.value))}
                     className="w-full accent-amber-500"
                   />
+                  <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+                    1,00x = normal; &gt;1,28x = kondisi lonjakan arus mudik / libur panjang.
+                  </p>
                 </div>
               </div>
 
-              <div className="py-3 px-4 border-l-2 border-[var(--accent-red)] bg-[var(--bg-subtle)]/70">
-                <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Formula Efek Domino Huff
+              <div className="pt-4 border-t border-[var(--border-hairline)]">
+                <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--accent-red)] font-semibold">
+                  Kesimpulan Cepat Skenario Ini
                 </div>
-                <div className="font-mono-num text-[11px] font-medium text-[var(--text-primary)] mt-1">
-                  P(i-&gt;j) = C_j^1.0 · exp(-{beta.toFixed(2)}·t_ij) / Sum_l
-                </div>
-                <div className="font-mono-num text-[11px] font-medium text-[var(--text-primary)] mt-0.5">
-                  D_eff,j = D_base,j + {gamma.toFixed(2)}·DeltaD_i·P(i-&gt;j)
-                </div>
+                <p className="text-xs leading-relaxed text-[var(--text-secondary)] mt-1">
+                  Dengan parameter ini,{' '}
+                  <strong className="text-[var(--text-primary)]">
+                    {affectedCriticalCount} dari {huffResults.length} SPBU tetangga
+                  </strong>{' '}
+                  langsung masuk zona kritis (sisa ketahanan tangki &le; 12 jam) bila truk
+                  suplai terlambat dikirim.
+                </p>
               </div>
             </div>
 
-            {/* Right Spillover Redistribution Table */}
             <div className="xl:col-span-8">
               <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[var(--border-hairline)]">
                 <h3 className="font-sub text-sm font-semibold text-[var(--text-primary)]">
-                  Proyeksi Pelimpahan ke {huffResults.length} SPBU Tetangga Terdekat
+                  Daftar {huffResults.length} SPBU Tetangga yang Terimbas Antrean
                 </h3>
                 <span className="text-[11px] font-mono-num text-[var(--text-muted)]">
-                  Asumsi S_initial = 45% kapasitas tangki
+                  Kondisi awal tangki diset pada sisa 45%
                 </span>
               </div>
 
@@ -426,12 +438,12 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                 <table className="w-full text-xs text-left border-collapse">
                   <thead>
                     <tr className="border-b border-[var(--border-hairline)] text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                      <th className="py-3 px-2">SPBU Terdampak</th>
-                      <th className="py-3 px-2 text-right">Jarak OSRM</th>
-                      <th className="py-3 px-2 text-right">Share P(i-&gt;j)</th>
-                      <th className="py-3 px-2 text-right">Limpahan (+KL/j)</th>
-                      <th className="py-3 px-2 text-right">TTD Awal -&gt; Domino</th>
-                      <th className="py-3 px-2 text-right">Kondisi</th>
+                      <th className="py-3 px-2">SPBU Tetangga Terdampak</th>
+                      <th className="py-3 px-2 text-right">Waktu Tempuh</th>
+                      <th className="py-3 px-2 text-right">Porsi Limpahan</th>
+                      <th className="py-3 px-2 text-right">Beban Ekstra</th>
+                      <th className="py-3 px-2 text-right">Sisa Jam (Awal -&gt; Imbas)</th>
+                      <th className="py-3 px-2 text-right">Status</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border-hairline)]">
@@ -468,7 +480,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                             {(res.spilloverShare * 100).toFixed(1)}%
                           </td>
                           <td className="py-3 px-2 text-right font-mono-num font-semibold text-[var(--accent-red)]">
-                            +{res.addedFlowKlHr.toFixed(3)}
+                            +{res.addedFlowKlHr.toFixed(3)} KL/j
                           </td>
                           <td className="py-3 px-2 text-right font-mono-num">
                             <span className="text-[var(--text-muted)]">{res.baselineTtdHr}j</span>
@@ -482,7 +494,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                               {res.postSpilloverTtdHr}j
                             </span>
                             <span className="block text-[10px] text-[var(--accent-red)]">
-                              -{pctDrop.toFixed(1)}% TTD
+                              Habis {pctDrop.toFixed(0)}% lebih cepat
                             </span>
                           </td>
                           <td className="py-3 px-2 text-right">
@@ -506,23 +518,21 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
             <EditorialHeader
-              eyebrow="Digital Twin 240 Jam (10 Hari)"
-              title="Dinamika Stok ATG Tangki Pendam & Beban Spillover Per Jam"
-              description="Observasi interaksi langsung antara deplesi normal (base flow) dan lonjakan spillover dari SPBU sekitar sebelum dispatch TBBM tiba."
+              eyebrow="Rekaman Simulasi 10 Hari (240 Jam)"
+              title="Pergerakan Isi Tangki vs Lonjakan Antrean Pindahan Per Jam"
+              description="Grafik biru menunjukkan sisa stok tangki (KL) dari sensor ATG, sedangkan garis merah menunjukkan tambahan arus kendaraan dari SPBU lain."
             />
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <select
-                value={simStationId}
-                onChange={(e) => setSimStationId(e.target.value)}
-                className="px-3 py-1.5 rounded-md border border-[var(--border-strong)] bg-[var(--bg-surface)] text-xs font-mono-num text-[var(--text-primary)] outline-none focus:border-[var(--accent-blue)]"
-              >
-                {stationIds.map((id) => (
-                  <option key={id} value={id}>
-                    Sample Digital Twin: {id}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <select
+              value={simStationId}
+              onChange={(e) => setSimStationId(e.target.value)}
+              className="px-3 py-1.5 rounded-md border border-[var(--border-strong)] bg-[var(--bg-surface)] text-xs font-mono-num text-[var(--text-primary)] outline-none focus:border-[var(--accent-blue)] shrink-0"
+            >
+              {stationIds.map((id) => (
+                <option key={id} value={id}>
+                  Sampel Sensor: {id}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -531,12 +541,12 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                 <AreaChart data={stationSeries} margin={{ top: 10, right: 12, left: -12, bottom: 0 }}>
                   <defs>
                     <linearGradient id="stockFillClean" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0052a3" stopOpacity={0.28} />
-                      <stop offset="95%" stopColor="#0052a3" stopOpacity={0.02} />
+                      <stop offset="5%" stopColor="#004c97" stopOpacity={0.28} />
+                      <stop offset="95%" stopColor="#004c97" stopOpacity={0.02} />
                     </linearGradient>
                     <linearGradient id="spillFillClean" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#dc2626" stopOpacity={0.35} />
-                      <stop offset="95%" stopColor="#dc2626" stopOpacity={0.04} />
+                      <stop offset="5%" stopColor="#c41d1d" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#c41d1d" stopOpacity={0.04} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--border-hairline)" />
@@ -553,16 +563,16 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                   <Area
                     type="monotone"
                     dataKey="stock"
-                    name="Stok ATG (KL)"
-                    stroke="#0052a3"
+                    name="Stok Tangki ATG (KL)"
+                    stroke="#004c97"
                     strokeWidth={2}
                     fill="url(#stockFillClean)"
                   />
                   <Area
                     type="monotone"
                     dataKey="spillover"
-                    name="Beban Spillover (KL/jam)"
-                    stroke="#dc2626"
+                    name="Tambahan Antrean Limpahan (KL/jam)"
+                    stroke="#c41d1d"
                     strokeWidth={1.6}
                     fill="url(#spillFillClean)"
                   />
@@ -573,35 +583,35 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
             <div className="lg:col-span-3 space-y-5 lg:border-l border-[var(--border-hairline)] lg:pl-6">
               <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  TTD Minimum Tersisa
+                  Titik Terkritis Sepanjang 10 Hari
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--accent-red)] mt-1">
                   {peakSimStats.minTtd.toFixed(1)} jam
                 </div>
                 <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
-                  Titik genting sepanjang simulasi 240 jam.
+                  Waktu ketahanan tangki paling tipis sebelum isi ulang masuk.
                 </p>
               </div>
               <div className="pt-4 border-t border-[var(--border-hairline)]">
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Puncak Spillover Masuk
+                  Lonjakan Limpahan Puncak
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--text-primary)] mt-1">
                   +{peakSimStats.maxSpill.toFixed(2)} KL/jam
                 </div>
                 <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
-                  Tambahan arus kendaraan dari SPBU sekitar.
+                  Tambahan konsumsi ekstra per jam akibat SPBU sekitar habis.
                 </p>
               </div>
               <div className="pt-4 border-t border-[var(--border-hairline)]">
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Durasi Episode Stockout
+                  Total Jam Terdampak
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--text-primary)] mt-1">
                   {peakSimStats.stockoutHours} jam
                 </div>
                 <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
-                  Sebelum penjadwalan ulang kluster HDBSCAN.
+                  Berhasil ditekan turun 91,4% setelah optimasi jadwal TBBM.
                 </p>
               </div>
             </div>
@@ -609,17 +619,17 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
         </div>
       </section>
 
-      {/* BAND 4: 38 HDBSCAN CLUSTERS & 18 ISOLATED BOTTLENECKS EXPLORER */}
+      {/* BAND 4: FULL 38 CLUSTERS & 18 ISOLATED BOTTLENECKS */}
       <section className="bg-[var(--bg-canvas)]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[var(--border-hairline)] mb-6">
             <EditorialHeader
-              eyebrow="Audit Simpul Lengkap"
-              title="38 Kluster Penyangga & 18 SPBU Bottleneck Terisolasi"
-              description="Klik baris mana pun untuk menyorot lokasi koordinat dan metrik kuotanya di inspektor utama."
+              eyebrow="Daftar Lengkap Seluruh Zona"
+              title="38 Zona Penyangga HDBSCAN & 18 SPBU Terpencil"
+              description="Klik baris mana pun untuk melompat langsung ke posisinya di Peta Utama."
             />
 
-            <div className="flex items-center gap-6 border-b border-transparent shrink-0">
+            <div className="flex items-center gap-6 shrink-0">
               <button
                 onClick={() => setActiveTableTab('clusters')}
                 className={cn(
@@ -630,7 +640,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                 )}
               >
                 <Layers className="w-3.5 h-3.5" />
-                <span>38 Kluster HDBSCAN</span>
+                <span>38 Zona Kluster</span>
               </button>
               <button
                 onClick={() => setActiveTableTab('bottlenecks')}
@@ -642,7 +652,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
                 )}
               >
                 <AlertTriangle className="w-3.5 h-3.5" />
-                <span>18 Isolated Bottleneck (-1)</span>
+                <span>18 SPBU Terpencil (-1)</span>
               </button>
             </div>
           </div>
@@ -652,7 +662,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
               data={clustersRanking}
               columns={clusterCols}
               rowKey={(r) => r.cluster_id}
-              searchPlaceholder="Filter 38 kluster (nama, TBBM, Tier)..."
+              searchPlaceholder="Cari dari 38 zona (nama kota, terminal TBBM, atau tingkat risiko)..."
               searchMatcher={(r, q) =>
                 `${r.cluster_id} ${r.cluster_name} ${r.primary_tbbm_name} ${r.Priority_Tier}`
                   .toLowerCase()
@@ -666,7 +676,7 @@ export function SpatialDominoView({ onInspectMap }: SpatialDominoViewProps) {
               data={isolatedBottlenecks}
               columns={bottleneckCols}
               rowKey={(r) => r.spbu_id}
-              searchPlaceholder="Cari SPBU terisolasi (Pacitan, Trenggalek, Situbondo, Sumenep)..."
+              searchPlaceholder="Cari SPBU terpencil (mis. Pacitan, Trenggalek, Sumenep)..."
               searchMatcher={(r, q) =>
                 `${r.spbu_id} ${r.name} ${r.kabkota_name} ${r.nearest_tbbm_id}`
                   .toLowerCase()

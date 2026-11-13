@@ -78,21 +78,21 @@ export function DataTable<T>({
       {(searchMatcher || toolbarRight) && (
         <div className="py-3 border-b border-[var(--border-hairline)] flex flex-wrap items-center justify-between gap-3">
           {searchMatcher ? (
-            <div className="relative flex-1 min-w-[200px] max-w-sm">
-              <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <div className="relative flex-1 min-w-[220px] max-w-sm">
+              <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={searchPlaceholder}
-                className="w-full pl-8 pr-3 py-1.5 text-xs bg-[var(--bg-surface)] border border-[var(--border-hairline)] rounded-full text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:border-[#004c97] dark:focus:border-[#2d8cff]"
+                className="w-full pl-8 pr-3 py-1.5 text-xs bg-[var(--bg-surface)] border border-[var(--border-strong)] rounded-md text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]"
               />
             </div>
           ) : (
             <div />
           )}
-          <div className="flex items-center gap-2 text-xs font-sub text-zinc-500 dark:text-zinc-400">
-            <span>{filtered.length} baris</span>
+          <div className="flex items-center gap-2 text-xs font-sub text-[var(--text-muted)]">
+            <span>{filtered.length} data ditampilkan</span>
             {toolbarRight}
           </div>
         </div>

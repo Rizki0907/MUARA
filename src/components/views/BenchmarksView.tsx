@@ -89,9 +89,9 @@ export function BenchmarksView() {
             <div className="lg:col-span-7">
               <Reveal>
                 <EditorialHeader
-                  eyebrow="Validasi Empiris & Ablasi Ketat (Seed = 42)"
-                  title="Komparasi 7 Model Prediksi, 5 Algoritma Klaster & 4 Solver Rute"
-                  description="Seluruh komparasi dijalankan dengan 5-Fold Time-Series Split bebas kebocoran data masa depan. Model gabungan MUARA mengungguli Bi-LSTM dalam kecepatan inferensi (11,2 ms vs 142,0 ms) maupun akurasi (RMSE TTD 2,391 jam; R² = 0,9759)."
+                  eyebrow="Bukti Pengujian Ilmiah (5-Fold Time-Series Split)"
+                  title="Menguji 7 Model Prediksi, 5 Metode Klaster & 4 Solver Rute"
+                  description="Seluruh model diuji tanpa kebocoran data masa depan (strict temporal validation). Hasilnya menunjukkan arsitektur MUARA mengalahkan pendekatan deep learning Bi-LSTM dari sisi ketepatan prediksi sekaligus berjalan 12,7x lebih cepat."
                   accent="blue"
                 />
               </Reveal>
@@ -100,30 +100,30 @@ export function BenchmarksView() {
             <div className="lg:col-span-5 grid grid-cols-3 gap-5 border-t lg:border-t-0 lg:border-l border-[var(--border-hairline)] pt-5 lg:pt-0 lg:pl-8">
               <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  RMSE TTD (R² 0,9759)
+                  Galat Prediksi (RMSE)
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--accent-blue)] mt-1">
-                  <AnimatedCounter value={2.391} decimals={3} suffix=" j" />
+                  <AnimatedCounter value={2.391} decimals={3} suffix=" jam" />
                 </div>
-                <div className="text-[11px] text-[var(--text-muted)]">-76,1% vs Moving Avg</div>
+                <div className="text-[11px] text-[var(--text-muted)]">Akurasi R² = 0,9759</div>
               </div>
               <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Konsistensi AHP (CR)
+                  Kecepatan Hitung
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--accent-green)] mt-1">
-                  0,0042
+                  11,2 ms
                 </div>
-                <div className="text-[11px] text-[var(--text-muted)]">Batas keras &lt; 0,05</div>
+                <div className="text-[11px] text-[var(--text-muted)]">12,7x vs Bi-LSTM (142 ms)</div>
               </div>
               <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Stabilitas Spearman rho
+                  Uji Konsistensi Ranking
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--text-primary)] mt-1">
-                  &gt;=0,9667
+                  100%
                 </div>
-                <div className="text-[11px] text-[var(--text-muted)]">Top-5 100% stabil</div>
+                <div className="text-[11px] text-[var(--text-muted)]">Top-5 stabil di 15 skenario</div>
               </div>
             </div>
           </div>
@@ -135,28 +135,28 @@ export function BenchmarksView() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-[var(--border-hairline)] mb-8">
             <EditorialHeader
-              eyebrow="Benchmarking Komparatif"
+              eyebrow="Komparasi Algoritma"
               title={
                 benchTab === 'prediction'
-                  ? '7 Model Prediksi Time-to-Depletion (TTD)'
+                  ? 'Perbandingan 7 Model Prediksi Kapan Tangki Kosong'
                   : benchTab === 'clustering'
-                  ? '5 Algoritma Klasterisasi Penyangga Spasial'
-                  : '4 Paradigma Optimasi Pengiriman TBBM'
+                  ? 'Perbandingan 5 Metode Pengelompokan Zona SPBU'
+                  : 'Perbandingan 4 Cara Penjadwalan Truk Tangki'
               }
               description={
                 benchTab === 'prediction'
-                  ? 'Metrik lebih rendah (RMSE TTD) menandakan prediksi kehabisan tangki lebih presisi untuk intervensi sebelum spillover memuncak.'
+                  ? 'Batang paling pendek (RMSE terendah) adalah yang terbaik karena salah prediksinya paling kecil dibanding jam kejadian asli.'
                   : benchTab === 'clustering'
-                  ? 'Spillover Containment Ratio (SCR) mengukur persentase migrasi permintaan yang berhasil tertampung di dalam kluster sendiri.'
-                  : 'OR-Tools MILP + GLS memadukan jadwal multi-drop dengan batas waktu bongkar-settling 45 menit serta kepatuhan shift 8 jam.'
+                  ? 'Semakin tinggi persentase Containment Ratio, semakin efektif batas zona menahan antrean agar tidak melebar ke kota lain.'
+                  : 'Membandingkan persentase kelangkaan berantai yang berhasil dicegah serta tingkat kepatuhan terhadap batas shift 8 jam.'
               }
             />
 
             <div className="flex items-center gap-5 shrink-0">
               {[
-                { id: 'prediction' as const, label: 'Prediksi TTD (7)' },
-                { id: 'clustering' as const, label: 'Klasterisasi (5)' },
-                { id: 'routing' as const, label: 'Routing (4)' },
+                { id: 'prediction' as const, label: 'Prediksi Waktu Habis (7)' },
+                { id: 'clustering' as const, label: 'Zona Kluster (5)' },
+                { id: 'routing' as const, label: 'Rute Truk (4)' },
               ].map((t) => (
                 <button
                   key={t.id}
@@ -202,15 +202,15 @@ export function BenchmarksView() {
                     dataKey="primary"
                     name={
                       benchTab === 'prediction'
-                        ? 'RMSE TTD (jam)'
+                        ? 'Kesalahan Prediksi (jam)'
                         : benchTab === 'clustering'
-                        ? 'Containment Ratio (%)'
-                        : 'Reduksi Stockout (%)'
+                        ? 'Limpahan Tertahan (%)'
+                        : 'Stok Habis Dicegah (%)'
                     }
                     radius={[0, 4, 4, 0]}
                   >
                     {chartData.map((entry, idx) => (
-                      <Cell key={idx} fill={entry.isWinner ? '#0052a3' : '#94a3b8'} />
+                      <Cell key={idx} fill={entry.isWinner ? '#004c97' : '#94a3b8'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -223,30 +223,26 @@ export function BenchmarksView() {
                   <thead>
                     <tr className="border-b border-[var(--border-hairline)] text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
                       <th className="py-2.5 px-2">#</th>
-                      <th className="py-2.5 px-2">Model Prediksi</th>
-                      <th className="py-2.5 px-2 text-right">RMSE (KL/j)</th>
-                      <th className="py-2.5 px-2 text-right">RMSE TTD</th>
+                      <th className="py-2.5 px-2">Nama Model</th>
+                      <th className="py-2.5 px-2 text-right">Galat Jam</th>
                       <th className="py-2.5 px-2 text-right">MAPE</th>
                       <th className="py-2.5 px-2 text-right">R²</th>
-                      <th className="py-2.5 px-2 text-right">Latensi</th>
+                      <th className="py-2.5 px-2 text-right">Kecepatan</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border-hairline)]">
                     {benchPrediction.map((m) => (
                       <tr
                         key={m.Model_Name}
-                        className={m.Model_Rank === 1 ? 'bg-[var(--bg-subtle)]/75' : ''}
+                        className={m.Model_Rank === 1 ? 'bg-[var(--bg-subtle)]' : ''}
                       >
                         <td className="py-2.5 px-2 font-mono-num">#{m.Model_Rank}</td>
                         <td className="py-2.5 px-2">
-                          <div className="font-medium text-[var(--text-primary)]">{m.Model_Name}</div>
+                          <div className="font-semibold text-[var(--text-primary)]">{m.Model_Name}</div>
                           <div className="text-[10px] text-[var(--text-muted)]">{m.Key_Diagnostic}</div>
                         </td>
-                        <td className="py-2.5 px-2 text-right font-mono-num">
-                          {m.RMSE_Depletion_KL_Hr.toFixed(3)}
-                        </td>
-                        <td className="py-2.5 px-2 text-right font-mono-num font-bold">
-                          {m.RMSE_TTD_Hours.toFixed(3)} j
+                        <td className="py-2.5 px-2 text-right font-mono-num font-bold text-[var(--accent-blue)]">
+                          {m.RMSE_TTD_Hours.toFixed(3)} jam
                         </td>
                         <td className="py-2.5 px-2 text-right font-mono-num">
                           {m.MAPE_Percent.toFixed(2)}%
@@ -268,23 +264,23 @@ export function BenchmarksView() {
                   <thead>
                     <tr className="border-b border-[var(--border-hairline)] text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
                       <th className="py-2.5 px-2">#</th>
-                      <th className="py-2.5 px-2">Algoritma</th>
-                      <th className="py-2.5 px-2 text-right">Kluster</th>
-                      <th className="py-2.5 px-2 text-right">Outlier</th>
+                      <th className="py-2.5 px-2">Metode Klaster</th>
+                      <th className="py-2.5 px-2 text-right">Zona</th>
+                      <th className="py-2.5 px-2 text-right">Terpencil</th>
                       <th className="py-2.5 px-2 text-right">Silhouette</th>
                       <th className="py-2.5 px-2 text-right">DBI</th>
-                      <th className="py-2.5 px-2 text-right">SCR (%)</th>
+                      <th className="py-2.5 px-2 text-right">Tertahan</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border-hairline)]">
                     {benchClustering.map((c) => (
                       <tr
                         key={c.Clustering_Model}
-                        className={c.Algorithm_Rank === 1 ? 'bg-[var(--bg-subtle)]/75' : ''}
+                        className={c.Algorithm_Rank === 1 ? 'bg-[var(--bg-subtle)]' : ''}
                       >
                         <td className="py-2.5 px-2 font-mono-num">#{c.Algorithm_Rank}</td>
                         <td className="py-2.5 px-2">
-                          <div className="font-medium text-[var(--text-primary)]">
+                          <div className="font-semibold text-[var(--text-primary)]">
                             {c.Clustering_Model}
                           </div>
                           <div className="text-[10px] text-[var(--text-muted)]">
@@ -315,22 +311,22 @@ export function BenchmarksView() {
                   <thead>
                     <tr className="border-b border-[var(--border-hairline)] text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
                       <th className="py-2.5 px-2">#</th>
-                      <th className="py-2.5 px-2">Paradigma Solver</th>
-                      <th className="py-2.5 px-2 text-right">Reduksi Stockout</th>
-                      <th className="py-2.5 px-2 text-right">Km Dihemat/thn</th>
-                      <th className="py-2.5 px-2 text-right">Utilisasi</th>
-                      <th className="py-2.5 px-2 text-right">Pelanggaran Shift</th>
+                      <th className="py-2.5 px-2">Metode Pengiriman</th>
+                      <th className="py-2.5 px-2 text-right">Stok Habis Dicegah</th>
+                      <th className="py-2.5 px-2 text-right">Jarak Dihemat/thn</th>
+                      <th className="py-2.5 px-2 text-right">Isi Tangki</th>
+                      <th className="py-2.5 px-2 text-right">Lembur Shift</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border-hairline)]">
                     {benchRouting.map((r) => (
                       <tr
                         key={r.Routing_Method}
-                        className={r.Method_Rank === 1 ? 'bg-[var(--bg-subtle)]/75' : ''}
+                        className={r.Method_Rank === 1 ? 'bg-[var(--bg-subtle)]' : ''}
                       >
                         <td className="py-2.5 px-2 font-mono-num">#{r.Method_Rank}</td>
                         <td className="py-2.5 px-2">
-                          <div className="font-medium text-[var(--text-primary)]">
+                          <div className="font-semibold text-[var(--text-primary)]">
                             {r.Routing_Method}
                           </div>
                           <div className="text-[10px] text-[var(--text-muted)]">
@@ -341,7 +337,7 @@ export function BenchmarksView() {
                           {r.Cascading_Stockout_Reduction_Pct.toFixed(1)}%
                         </td>
                         <td className="py-2.5 px-2 text-right font-mono-num">
-                          {r.Emergency_Km_Saved_Per_Yr.toLocaleString('id-ID')}
+                          {r.Emergency_Km_Saved_Per_Yr.toLocaleString('id-ID')} km
                         </td>
                         <td className="py-2.5 px-2 text-right font-mono-num">
                           {r.Fleet_Compartment_Utilization_Pct.toFixed(1)}%
@@ -365,28 +361,26 @@ export function BenchmarksView() {
       <section className="bg-[var(--bg-surface)]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
-            {/* Left Hybrid CRITIC-AHP Weight Simulator */}
             <div className="xl:col-span-6 space-y-6">
               <div className="flex items-start justify-between gap-3 pb-4 border-b border-[var(--border-hairline)]">
                 <EditorialHeader
-                  eyebrow="Eksperimen Kalibrasi Bobot"
-                  title="Penyeimbang Hybrid CRITIC–AHP (Parameter theta)"
-                  description="Geser theta untuk mengamati perpaduan variansi objektif data CRITIC dan preferensi tata kelola AHP (lambda_max = 4,011 · CI = 0,0038 · CR = 0,0042)."
+                  eyebrow="Uji Keseimbangan Pembobotan"
+                  title="Gabungan Bobot Data (CRITIC) & Pakar Lapangan (AHP)"
+                  description="Geser pengatur theta di bawah untuk melihat apakah daftar zona paling prioritas berubah jika bobot digeser antara murni data sensor vs penilaian manajer TBBM."
                 />
                 <Badge variant="green" className="shrink-0">
-                  CR 0,0042 &lt; 0,05
+                  CR 0,0042 (&lt; 0,05)
                 </Badge>
               </div>
 
-              <div className="py-3 px-4 border-l-2 border-[var(--accent-blue)] bg-[var(--bg-subtle)]/70">
+              <div className="py-3 border-y border-[var(--border-hairline)]">
                 <div className="flex justify-between text-xs mb-2">
-                  <span className="font-sub font-semibold text-[var(--text-secondary)] inline-flex items-center gap-1.5">
+                  <span className="font-sub font-semibold text-[var(--text-primary)] inline-flex items-center gap-1.5">
                     <SlidersHorizontal className="w-3.5 h-3.5 text-[var(--accent-blue)]" />
-                    theta (CRITIC Objektif vs AHP Pakar)
+                    Pengimbang Bobot (theta)
                   </span>
                   <span className="font-mono-num font-bold text-[var(--accent-blue)]">
-                    theta = {theta.toFixed(2)} (
-                    {theta === 0.5 ? 'Standar Paper' : 'Kustom'})
+                    theta = {theta.toFixed(2)} ({theta === 0.5 ? 'Standar Paper 50:50' : 'Simulasi Kustom'})
                   </span>
                 </div>
                 <input
@@ -399,13 +393,13 @@ export function BenchmarksView() {
                   className="w-full accent-blue-600"
                 />
                 <div className="flex justify-between text-[10px] font-sub text-[var(--text-muted)] mt-1">
-                  <span>0,00 = 100% AHP Operasional</span>
-                  <span>0,50 = Hibrida Terkalibrasi</span>
-                  <span>1,00 = 100% CRITIC Data</span>
+                  <span>0,00 = Murni Aturan Pakar (AHP)</span>
+                  <span>0,50 = Seimbang</span>
+                  <span>1,00 = Murni Data Sensor (CRITIC)</span>
                 </div>
               </div>
 
-              <div className="divide-y divide-[var(--border-hairline)] border-y border-[var(--border-hairline)]">
+              <div className="divide-y divide-[var(--border-hairline)] border-b border-[var(--border-hairline)]">
                 {liveWeights.map((w) => (
                   <div key={w.Dimension_Code} className="py-3">
                     <div className="flex justify-between text-xs mb-1.5">
@@ -418,11 +412,11 @@ export function BenchmarksView() {
                       <span className="font-mono-num font-semibold text-[var(--text-primary)]">
                         {(w.liveWeight * 100).toFixed(1)}%
                         <span className="text-[var(--text-muted)] font-normal ml-1.5">
-                          (Paper: {(w.Weight_MUARA_Calibrated * 100).toFixed(0)}%)
+                          (Standar: {(w.Weight_MUARA_Calibrated * 100).toFixed(0)}%)
                         </span>
                       </span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-[var(--bg-subtle)] overflow-hidden">
+                    <div className="h-1.5 bg-[var(--bg-subtle)] overflow-hidden">
                       <div
                         style={{ width: `${w.liveWeight * 100}%` }}
                         className="h-full bg-[var(--accent-blue)] transition-all"
@@ -433,10 +427,10 @@ export function BenchmarksView() {
               </div>
 
               <div>
-                <div className="text-[11px] font-sub uppercase tracking-wider text-[var(--text-muted)] mb-2.5">
-                  Top-6 Kluster Live Pada theta = {theta.toFixed(2)}
+                <div className="text-[11px] font-sub font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2.5">
+                  Peringkat 6 Besar Saat Ini (theta = {theta.toFixed(2)})
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 divide-y sm:divide-y-0 border-y border-[var(--border-hairline)]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 border-t border-[var(--border-hairline)]">
                   {liveTop6.map((c, idx) => (
                     <div
                       key={c.cluster_id}
@@ -460,16 +454,15 @@ export function BenchmarksView() {
               </div>
             </div>
 
-            {/* Right 15-Scenario Sensitivity Verification */}
             <div className="xl:col-span-6 xl:border-l border-[var(--border-hairline)] xl:pl-10 space-y-5">
               <div className="flex items-start justify-between gap-3 pb-4 border-b border-[var(--border-hairline)]">
                 <EditorialHeader
-                  eyebrow="Uji Ketahanan Lintas 15 Skenario"
-                  title="Konsistensi Peringkat Top-5 & NPV pada Variasi Bobot & Shock"
-                  description="Menguji kombinasi skema bobot (MUARA Calibrated, CRITIC Only, AHP Only, Equal) terhadap rezim Normal (1,00x), Peak Lebaran/Nataru (1,28x), dan Extreme Shock (1,45x)."
+                  eyebrow="Bukti Ketahanan Keputusan"
+                  title="Daftar 5 Zona Teratas Tetap Stabil Lintas 15 Skenario Krisis"
+                  description="Baik pada kondisi permintaan turun (-15%), normal, hingga lonjakan ekstrem (+25%), lima wilayah paling genting tidak berubah secara acak."
                 />
                 <Badge variant="green" className="shrink-0">
-                  100% Top-5 Match
+                  Stabil 100%
                 </Badge>
               </div>
 
@@ -479,7 +472,7 @@ export function BenchmarksView() {
                     <tr className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
                       <th className="py-2.5 px-2">Skema Bobot</th>
                       <th className="py-2.5 px-2">Skenario Beban</th>
-                      <th className="py-2.5 px-2 text-right">Spearman rho</th>
+                      <th className="py-2.5 px-2 text-right">Korelasi Spearman</th>
                       <th className="py-2.5 px-2 text-right">Top-5 Stabil</th>
                       <th className="py-2.5 px-2 text-right">NPV Model C</th>
                     </tr>

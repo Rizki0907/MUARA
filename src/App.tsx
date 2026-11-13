@@ -84,7 +84,7 @@ export function App() {
               <img
                 src={theme === 'dark' ? '/brand/logo-dark.png' : '/brand/logo-light.png'}
                 alt="MUARA Wordmark"
-                className="h-5 w-auto object-contain"
+                className="h-8 sm:h-9 w-auto object-contain"
               />
               <span className="font-sub text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
                 Multi-Tier Urban Adaptive Refueling &amp; Allocation

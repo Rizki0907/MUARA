@@ -18,15 +18,15 @@ import { EditorialHeader, Reveal } from '../ui/MotionPrimitives';
 
 const INCIDENT_PRESETS = [
   {
-    label: 'Banjir Porong + Antrean Pantura',
+    label: 'Banjir Porong + Macet Pantura',
     text: 'Laporan AMT: genangan banjir > 35 cm di koridor Porong dan kemacetan arteri Pantura. TTD Kluster Tier 1 < Lead Time TBBM dengan hujan ekstrem ERA5 > 15 mm/jam. Mohon aktivasi alih suplai lintas TBBM.',
   },
   {
-    label: 'SPBU Arteri <12% + Bottleneck Pacitan',
+    label: 'SPBU Arteri Menipis + Pacitan',
     text: 'Laporan operator SPBU arteri stok tangki pendam < 12% dengan antrean panjang, dan Isolated Bottleneck SPBU jalur lintas selatan Pacitan menyentuh ambang 30% safety buffer.',
   },
   {
-    label: 'Longsor Jalur Gumitir (Tapal Kuda)',
+    label: 'Longsor Jalur Gumitir (Jember)',
     text: 'Hambatan jalur arteri Gumitir menuju Jember akibat hujan ekstrem ERA5. Pertimbangkan rerouting CVRPTW dan verifikasi batas kelas jalan truk 16 KL serta jam kerja AMT <= 8 jam.',
   },
 ];
@@ -60,7 +60,7 @@ export function RagRoutingView() {
   const routeCols: ColumnDef<CvrptwRoute>[] = [
     {
       key: 'route_id',
-      header: 'ID Rute',
+      header: 'Kode Rute',
       sortValue: (r) => r.route_id,
       render: (r) => (
         <span className="font-mono-num font-semibold text-[var(--accent-blue)]">
@@ -70,7 +70,7 @@ export function RagRoutingView() {
     },
     {
       key: 'origin',
-      header: 'TBBM Asal -> Koridor',
+      header: 'Dari Terminal -> Zona Tujuan',
       sortValue: (r) => r.tbbm_origin,
       render: (r) => (
         <div>
@@ -84,7 +84,7 @@ export function RagRoutingView() {
     },
     {
       key: 'stops',
-      header: 'Multi-Drop Stops',
+      header: 'Urutan SPBU yang Diisi (Multi-Drop)',
       render: (r) => (
         <span className="font-mono-num text-[11px] text-[var(--text-secondary)]">
           {r.multi_drop_stops}
@@ -93,7 +93,7 @@ export function RagRoutingView() {
     },
     {
       key: 'cap',
-      header: 'Tangki',
+      header: 'Ukuran Truk',
       align: 'right',
       sortValue: (r) => r.assigned_truck_capacity_kl,
       render: (r) => <Badge variant="neutral">{r.assigned_truck_capacity_kl} KL</Badge>,
@@ -111,16 +111,16 @@ export function RagRoutingView() {
     },
     {
       key: 'shift',
-      header: 'Shift AMT',
+      header: 'Lama Shift Sopir',
       align: 'right',
       sortValue: (r) => r.total_amt_shift_hr,
       render: (r) => <span className="font-mono-num">{r.total_amt_shift_hr.toFixed(2)} jam</span>,
     },
     {
       key: 'hsse',
-      header: 'HSSE <= 8j',
+      header: 'Aturan HSSE <= 8j',
       align: 'center',
-      render: () => <Badge variant="green">100% Patuh</Badge>,
+      render: () => <Badge variant="green">Patuh 100%</Badge>,
     },
   ];
 
@@ -128,48 +128,48 @@ export function RagRoutingView() {
 
   return (
     <div className="w-full">
-      {/* BAND 1: EDITORIAL FRAMING ON TACIT KNOWLEDGE & CVRPTW */}
+      {/* BAND 1: EDITORIAL HEADER & KEY OPERATIONAL ADVANTAGES */}
       <section className="border-b border-[var(--border-hairline)] bg-[var(--bg-surface)]">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-10 lg:py-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-7">
               <Reveal>
                 <EditorialHeader
-                  eyebrow="Modul 04 & 05 · Collective Intelligence & OR-Tools CVRPTW"
-                  title="Dari Pengetahuan Tacit Lapangan ke Rute Multi-Drop Bebas Pelanggaran HSSE"
-                  description="Sistem dispatch klasik kerap gagal karena mengabaikan pengetahuan tacit pengawas SPBU dan Awak Mobil Tangki (AMT). MUARA menggabungkan RAG Dispatcher berbasis SOP Pertamina Patra Niaga (ambang kosinus >= 0,78 dan gerbang persetujuan I_approve = 1) langsung ke fungsi biaya jalan MILP CVRPTW + Guided Local Search."
+                  eyebrow="Asisten SOP Lapangan & Jadwal Truk Tangki"
+                  title="Mengubah Laporan Banjir & Macet Menjadi Rute Pengiriman Aman"
+                  description="Sopir mobil tangki (AMT) dan petugas SPBU sering tahu lebih dulu jika ada banjir, longsor, atau pasar tumpah. Di sini Anda dapat menguji bagaimana asisten AI mencocokkan laporan tersebut ke buku SOP Patra Niaga sebelum dispatcher menyetujui pengalihan rute."
                   accent="blue"
                 />
               </Reveal>
             </div>
 
-            <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-5 border-t lg:border-t-0 lg:border-l border-[var(--border-hairline)] pt-5 lg:pt-0 lg:pl-8">
+            <div className="lg:col-span-5 grid grid-cols-3 gap-5 border-t lg:border-t-0 lg:border-l border-[var(--border-hairline)] pt-5 lg:pt-0 lg:pl-8">
               <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Utilisasi Armada
+                  Muatan Truk Terisi
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--accent-blue)] mt-1">
                   <AnimatedCounter value={94.8} decimals={1} suffix="%" />
                 </div>
-                <div className="text-[11px] text-[var(--text-muted)]">16 / 24 / 32 KL</div>
+                <div className="text-[11px] text-[var(--text-muted)]">Truk 16 / 24 / 32 KL</div>
               </div>
               <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Pelanggaran HSSE &gt;8j
+                  Sopir Lembur &gt; 8 Jam
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--accent-green)] mt-1">
                   0,0%
                 </div>
-                <div className="text-[11px] text-[var(--text-muted)]">vs FCFS 11,4%</div>
+                <div className="text-[11px] text-[var(--text-muted)]">Sistem lama: 11,4%</div>
               </div>
-              <div className="col-span-2 sm:col-span-1">
+              <div>
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Settling &amp; Unload
+                  Waktu Bongkar + Aman
                 </div>
                 <div className="font-mono-num text-2xl font-bold text-[var(--text-primary)] mt-1">
                   45 mnt
                 </div>
-                <div className="text-[11px] text-[var(--text-muted)]">Hard constraint</div>
+                <div className="text-[11px] text-[var(--text-muted)]">Wajib di tiap SPBU</div>
               </div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export function RagRoutingView() {
               <div className="flex items-center justify-between gap-2 pb-3 border-b border-[var(--border-hairline)]">
                 <span className="text-xs font-sub font-semibold text-[var(--text-primary)] inline-flex items-center gap-2">
                   <Bot className="w-4 h-4 text-[var(--accent-blue)]" />
-                  Input Laporan Lapangan (WhatsApp / Radio AMT)
+                  1. Pilih atau Ketik Laporan Kondisi Lapangan
                 </span>
                 <button
                   onClick={() => {
@@ -194,7 +194,7 @@ export function RagRoutingView() {
                   }}
                   className="text-[11px] font-sub text-[var(--text-muted)] hover:text-[var(--text-primary)] inline-flex items-center gap-1"
                 >
-                  <RotateCcw className="w-3 h-3" /> Reset
+                  <RotateCcw className="w-3 h-3" /> Reset Contoh
                 </button>
               </div>
 
@@ -221,45 +221,43 @@ export function RagRoutingView() {
                 }}
                 rows={4}
                 className="w-full p-3.5 rounded-md border border-[var(--border-strong)] bg-[var(--bg-surface)] text-xs leading-relaxed text-[var(--text-primary)] outline-none focus:border-[var(--accent-blue)]"
-                placeholder="Ketik laporan kendala operator SPBU atau AMT di koridor Jawa Timur..."
+                placeholder="Ketik laporan kendala dari petugas SPBU atau sopir AMT..."
               />
 
-              <div className="py-3 px-4 border-l-2 border-[var(--accent-blue)] bg-[var(--bg-subtle)]/70">
+              <div className="pt-3 border-t border-[var(--border-hairline)] space-y-1">
                 <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                  Formula Penalti Dinamis CVRPTW (Persetujuan Dispatcher)
+                  Mekanisme Pengaman Keputusan (Human-in-the-Loop)
                 </div>
-                <div className="font-mono-num text-xs font-semibold text-[var(--text-primary)] mt-1">
-                  d&apos;_OSRM(u,v) = d_OSRM(u,v) · (1 + phi_RAG(u,v) · I_approve)
-                </div>
-                <p className="text-[11px] text-[var(--text-secondary)] mt-1">
-                  Ketika dispatcher belum menyetujui (I_approve = 0), AI tidak boleh mengubah rute
-                  secara sepihak demi akuntabilitas tata kelola HSSE.
+                <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
+                  Asisten AI <strong>tidak boleh</strong> mengubah rute truk sendirian. Penalti
+                  hambatan jalur hanya aktif ke solver rute setelah petugas dispatcher mengklik
+                  tombol persetujuan (<span className="font-mono-num">I_approve = 1</span>).
                 </p>
               </div>
             </div>
 
-            {/* Right Retrieved SOP & MyPertamina Demand-Shaping Response */}
+            {/* Right Retrieved SOP & Approval Action */}
             <div className="lg:col-span-7 lg:border-l border-[var(--border-hairline)] lg:pl-10 space-y-6">
               {topMatch && (
                 <div className="space-y-5">
                   <div className="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-[var(--border-hairline)]">
                     <div>
                       <div className="text-[11px] font-mono-num text-[var(--accent-blue)]">
-                        {topMatch.doc.doc_id} · {topMatch.doc.category}
+                        Rujukan SOP Ditemukan · {topMatch.doc.doc_id} ({topMatch.doc.category})
                       </div>
                       <h3 className="font-display text-xl sm:text-2xl text-[var(--text-primary)] mt-1">
                         {topMatch.doc.trigger_condition}
                       </h3>
                     </div>
                     <Badge variant={topMatch.cosineScore >= 0.78 ? 'green' : 'amber'}>
-                      Cosine {(topMatch.cosineScore * 100).toFixed(0)}% (&gt;= 78% Gate)
+                      Kecocokan {(topMatch.cosineScore * 100).toFixed(0)}% (Syarat &ge; 78%)
                     </Badge>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)]">
-                        Protokol Tindakan SOP Disarankan
+                        2. Rekomendasi Tindakan SOP
                       </div>
                       <p className="text-xs leading-relaxed text-[var(--text-primary)] mt-1.5">
                         {topMatch.doc.action_protocol}
@@ -267,7 +265,7 @@ export function RagRoutingView() {
                     </div>
                     <div>
                       <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--accent-red)] inline-flex items-center gap-1">
-                        <ShieldAlert className="w-3.5 h-3.5" /> Batasan Keras HSSE Patra Niaga
+                        <ShieldAlert className="w-3.5 h-3.5" /> Batasan Keselamatan Kerja (HSSE)
                       </div>
                       <p className="text-xs leading-relaxed text-[var(--text-secondary)] mt-1.5">
                         {topMatch.doc.hsse_rule}
@@ -279,7 +277,7 @@ export function RagRoutingView() {
                     <div className="space-y-1">
                       <div className="text-[10px] font-sub uppercase tracking-wider text-[var(--text-muted)] inline-flex items-center gap-1.5">
                         <Smartphone className="w-3.5 h-3.5 text-[var(--accent-blue)]" />
-                        Demand-Shaping MyPertamina (Insentif Poin)
+                        Pengurai Antrean Warga (MyPertamina)
                       </div>
                       <p className="text-xs text-[var(--text-primary)] font-medium">
                         {topMatch.myPertaminaDiscount}
@@ -288,7 +286,7 @@ export function RagRoutingView() {
 
                     <div className="flex flex-col sm:items-end gap-2">
                       <div className="text-xs font-mono-num">
-                        phi_RAG(u,v) ={' '}
+                        Penalti Jarak:{' '}
                         <strong className="text-[var(--accent-blue)]">
                           +{topMatch.phiRagPenalty.toFixed(2)}
                         </strong>{' '}
@@ -300,7 +298,7 @@ export function RagRoutingView() {
                               : 'text-amber-600 dark:text-amber-400 font-semibold'
                           }
                         >
-                          I_approve = {isApproved ? '1 (DISETUJUI)' : '0 (MENUNGGU)'}
+                          {isApproved ? 'SUDAH DISETUJUI (AKTIF)' : 'MENUNGGU PERSETUJUAN'}
                         </span>
                       </div>
 
@@ -315,8 +313,8 @@ export function RagRoutingView() {
                       >
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         {isApproved
-                          ? 'Disetujui -> Penalti Rute Aktif di Solver'
-                          : 'Setujui & Injeksi Penalti ke OR-Tools CVRPTW'}
+                          ? 'Aktif: Rute Pengiriman Sudah Dialihkan'
+                          : 'Setujui & Terapkan Pengalihan Rute'}
                       </button>
                     </div>
                   </div>
@@ -332,15 +330,15 @@ export function RagRoutingView() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[var(--border-hairline)] mb-6">
             <EditorialHeader
-              eyebrow="Jadwal Optimasi OR-Tools MILP + GLS"
-              title="Daftar Rute Multi-Drop Tangki Kompartemen (16 / 24 / 32 KL)"
-              description="Saring berdasarkan Terminal BBM asal untuk memeriksa jarak yang dihemat vs skenario single-drop reaktif (1,65x/km) dan kepatuhan shift HSSE 8 jam."
+              eyebrow="Jadwal Perjalanan Truk Multi-Tujuan"
+              title="Rencana Kirim Multi-Drop dari 7 Terminal TBBM"
+              description="Alih-alih mengirim 1 truk hanya untuk 1 SPBU darurat, MUARA menggabungkan beberapa SPBU searah ke dalam satu perjalanan sesuai kapasitas kompartemen."
             />
 
             <div className="flex flex-wrap items-center gap-4 shrink-0 text-xs font-mono-num">
               <div>
                 <span className="text-[var(--text-muted)] block text-[10px] font-sub uppercase">
-                  Jarak Dihemat (Batch)
+                  Penghematan Jarak (Filter Ini)
                 </span>
                 <strong className="text-lg text-[var(--accent-green)]">
                   -{routeStats.totalSaved.toFixed(1)} km
@@ -348,7 +346,7 @@ export function RagRoutingView() {
               </div>
               <div className="pl-4 border-l border-[var(--border-hairline)]">
                 <span className="text-[var(--text-muted)] block text-[10px] font-sub uppercase">
-                  Rerata Shift AMT
+                  Rata-rata Jam Kerja Sopir
                 </span>
                 <strong className="text-lg text-[var(--text-primary)]">
                   {routeStats.avgShift.toFixed(2)} jam
@@ -369,7 +367,7 @@ export function RagRoutingView() {
                     : 'bg-transparent border-[var(--border-strong)] text-[var(--text-secondary)] hover:bg-[var(--bg-subtle)]'
                 )}
               >
-                {t === 'ALL' ? 'Semua 7 TBBM' : t}
+                {t === 'ALL' ? 'Semua 7 Terminal' : t}
               </button>
             ))}
           </div>
@@ -378,7 +376,7 @@ export function RagRoutingView() {
             data={filteredRoutes}
             columns={routeCols}
             rowKey={(r) => r.route_id}
-            searchPlaceholder="Cari ID rute, koridor, atau ID SPBU tujuan..."
+            searchPlaceholder="Cari kode rute, nama koridor, atau kode SPBU..."
             searchMatcher={(r, q) =>
               `${r.route_id} ${r.tbbm_origin} ${r.target_corridor} ${r.multi_drop_stops}`
                 .toLowerCase()
@@ -388,7 +386,7 @@ export function RagRoutingView() {
             toolbarRight={
               <span className="inline-flex items-center gap-1.5 text-[11px] font-sub text-[var(--text-muted)]">
                 <RouteIcon className="w-3.5 h-3.5 text-[var(--accent-green)]" />
-                Model C (MILP + GLS): 0,0% pelanggaran shift &gt; 8 jam
+                Seluruh rute patuh batas maksimal 8 jam kerja AMT
               </span>
             }
           />
