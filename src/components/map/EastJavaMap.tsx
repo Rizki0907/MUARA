@@ -91,16 +91,16 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-[#111114] border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden flex flex-col">
+    <div className="flex flex-col border-t border-b border-[var(--border-hairline)] bg-[var(--bg-surface)] rounded-lg overflow-hidden">
       {/* Map Header Controls */}
-      <div className="px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+      <div className="px-4 py-3 border-b border-[var(--border-hairline)] flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-          <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-            Peta Topologi Spasial Jawa Timur (WGS84 · OSRM)
+          <Layers className="w-4 h-4 text-[#004c97] dark:text-[#2d8cff]" />
+          <span className="text-xs font-sub font-semibold text-zinc-900 dark:text-zinc-100">
+            Peta Topologi Spasial Jawa Timur (WGS84 · Matriks OSRM 920×920)
           </span>
           {hoverLabel && (
-            <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-[11px] font-mono-num text-zinc-700 dark:text-zinc-300">
+            <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-[11px] font-sub text-zinc-700 dark:text-zinc-300">
               {hoverLabel}
             </span>
           )}
@@ -118,10 +118,10 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
               key={item.key}
               onClick={() => setLayers((prev) => ({ ...prev, [item.key]: !prev[item.key] }))}
               className={cn(
-                'px-2 py-1 rounded-md text-[11px] font-medium border transition-colors',
+                'px-2.5 py-1 rounded-full text-[11px] font-sub font-medium border transition-colors',
                 layers[item.key]
-                  ? 'bg-blue-600/10 text-blue-700 border-blue-600/25 dark:bg-blue-500/15 dark:text-blue-400 dark:border-blue-500/30'
-                  : 'bg-zinc-50 dark:bg-zinc-900 text-zinc-500 border-zinc-200 dark:border-zinc-800'
+                  ? 'bg-[#004c97]/10 text-[#004c97] border-[#004c97]/30 dark:bg-[#2d8cff]/15 dark:text-[#2d8cff] dark:border-[#2d8cff]/35'
+                  : 'bg-transparent text-zinc-500 border-[var(--border-hairline)]'
               )}
             >
               {item.label}
@@ -132,7 +132,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
 
       {/* SVG Map Canvas */}
       <div
-        className="relative bg-zinc-50 dark:bg-[#09090b] overflow-hidden select-none cursor-grab active:cursor-grabbing"
+        className="relative bg-[#efece4]/55 dark:bg-[#0b0d10] overflow-hidden select-none cursor-grab active:cursor-grabbing"
         onMouseDown={(e) => setDragging({ x: e.clientX - pan.x, y: e.clientY - pan.y })}
         onMouseMove={(e) => {
           if (dragging) {
@@ -142,7 +142,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
         onMouseUp={() => setDragging(null)}
         onMouseLeave={() => setDragging(null)}
       >
-        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-[360px] sm:h-[420px] block">
+        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="w-full h-[380px] sm:h-[440px] block">
           <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`} style={{ transformOrigin: 'center' }}>
             {/* 38 Kab/Kota Polygons */}
             {jatimPolygons.features.map((feat, idx) => {
@@ -168,26 +168,42 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                   className={cn(
                     'transition-colors duration-150 cursor-pointer stroke-[0.8]',
                     isSelected
-                      ? 'fill-blue-500/20 stroke-blue-500'
-                      : 'fill-white dark:fill-[#141418] stroke-zinc-300 dark:stroke-zinc-800 hover:fill-zinc-100 dark:hover:fill-zinc-800/80'
+                      ? 'fill-[#004c97]/20 dark:fill-[#2d8cff]/20 stroke-[#004c97] dark:stroke-[#2d8cff]'
+                      : 'fill-white dark:fill-[#141920] stroke-[#d6d2c7] dark:stroke-[#232933] hover:fill-[#f7f6f2] dark:hover:fill-[#1c232d]'
                   )}
                 />
               );
             })}
 
-            {/* CVRPTW Multi-Drop Supply Arcs */}
+            {/* Animated CVRPTW Multi-Drop Supply Arcs */}
             {layers.routes &&
               routeArcs.map((arc) =>
                 arc ? (
-                  <path
-                    key={arc.id}
-                    d={arc.d}
-                    fill="none"
-                    stroke="#2589f5"
-                    strokeOpacity={0.45}
-                    strokeWidth={1.35 / Math.sqrt(zoom)}
-                    strokeDasharray="4 3"
-                  />
+                  <g key={arc.id}>
+                    <path
+                      d={arc.d}
+                      fill="none"
+                      stroke="#2d8cff"
+                      strokeOpacity={0.22}
+                      strokeWidth={1.5 / Math.sqrt(zoom)}
+                    />
+                    <path
+                      d={arc.d}
+                      fill="none"
+                      stroke="#2d8cff"
+                      strokeOpacity={0.78}
+                      strokeWidth={1.4 / Math.sqrt(zoom)}
+                      strokeDasharray="6 6"
+                    >
+                      <animate
+                        attributeName="stroke-dashoffset"
+                        from="24"
+                        to="0"
+                        dur="1.8s"
+                        repeatCount="indefinite"
+                      />
+                    </path>
+                  </g>
                 ) : null
               )}
 
@@ -202,23 +218,23 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                 const isSelected = selection?.type === 'spbu' && selection.data.id === s.id;
                 const fill =
                   tier === 1
-                    ? '#ef4444'
+                    ? '#e11d48'
                     : tier === 2
-                    ? '#f59e0b'
+                    ? '#d97706'
                     : isEligible
-                    ? '#3b82f6'
-                    : '#10b981';
+                    ? '#2d8cff'
+                    : '#16a34a';
 
                 return (
                   <circle
                     key={s.id}
                     cx={pt[0]}
                     cy={pt[1]}
-                    r={(isSelected ? 5.2 : 2.1) / Math.sqrt(zoom)}
+                    r={(isSelected ? 5.5 : 2.15) / Math.sqrt(zoom)}
                     fill={fill}
-                    fillOpacity={isSelected ? 1 : 0.72}
+                    fillOpacity={isSelected ? 1 : 0.78}
                     stroke={isSelected ? '#ffffff' : 'none'}
-                    strokeWidth={1.2 / Math.sqrt(zoom)}
+                    strokeWidth={1.3 / Math.sqrt(zoom)}
                     className="cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -230,7 +246,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                 );
               })}
 
-            {/* 38 Cluster Centroid Rings */}
+            {/* 38 Cluster Centroid Rings with Pulse on Tier 1 */}
             {layers.clusters &&
               clustersRanking.map((c) => {
                 const pt = projection([c.centroid_lon, c.centroid_lat]);
@@ -238,6 +254,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                 const isTier1 = c.Priority_Tier.startsWith('Tier 1');
                 const isSelected =
                   selection?.type === 'cluster' && selection.data.cluster_id === c.cluster_id;
+                const baseR = (isSelected ? 14 : isTier1 ? 10 : 6.5) / Math.sqrt(zoom);
                 return (
                   <g
                     key={c.cluster_id}
@@ -252,11 +269,35 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                     }
                     onMouseLeave={() => setHoverLabel(null)}
                   >
+                    {isTier1 && (
+                      <circle
+                        r={baseR}
+                        fill="none"
+                        stroke="#e11d48"
+                        strokeWidth={1.2 / Math.sqrt(zoom)}
+                        strokeOpacity={0.55}
+                      >
+                        <animate
+                          attributeName="r"
+                          from={String(baseR)}
+                          to={String(baseR * 1.9)}
+                          dur="2.4s"
+                          repeatCount="indefinite"
+                        />
+                        <animate
+                          attributeName="stroke-opacity"
+                          from="0.55"
+                          to="0"
+                          dur="2.4s"
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    )}
                     <circle
-                      r={(isSelected ? 14 : isTier1 ? 10 : 6.5) / Math.sqrt(zoom)}
-                      fill={isTier1 ? 'rgba(239, 68, 68, 0.14)' : 'rgba(37, 137, 245, 0.08)'}
-                      stroke={isSelected ? '#fafafa' : isTier1 ? '#ef4444' : '#3b82f6'}
-                      strokeWidth={(isSelected ? 1.8 : 1) / Math.sqrt(zoom)}
+                      r={baseR}
+                      fill={isTier1 ? 'rgba(225, 29, 72, 0.14)' : 'rgba(45, 140, 255, 0.08)'}
+                      stroke={isSelected ? '#ffffff' : isTier1 ? '#e11d48' : '#2d8cff'}
+                      strokeWidth={(isSelected ? 1.9 : 1) / Math.sqrt(zoom)}
                     />
                   </g>
                 );
@@ -285,9 +326,9 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                       onMouseLeave={() => setHoverLabel(null)}
                     >
                       <polygon
-                        points={`0,${-4.8 / Math.sqrt(zoom)} ${4.2 / Math.sqrt(zoom)},${3.4 / Math.sqrt(zoom)} ${-4.2 / Math.sqrt(zoom)},${3.4 / Math.sqrt(zoom)}`}
-                        fill="#ef4444"
-                        stroke={isSelected ? '#ffffff' : '#09090b'}
+                        points={`0,${-5 / Math.sqrt(zoom)} ${4.4 / Math.sqrt(zoom)},${3.6 / Math.sqrt(zoom)} ${-4.4 / Math.sqrt(zoom)},${3.6 / Math.sqrt(zoom)}`}
+                        fill="#c81e1e"
+                        stroke={isSelected ? '#ffffff' : '#0b0d10'}
                         strokeWidth={1 / Math.sqrt(zoom)}
                       />
                     </g>
@@ -319,7 +360,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                       width={sz * 2}
                       height={sz * 2}
                       rx={2 / Math.sqrt(zoom)}
-                      fill="#0057b8"
+                      fill="#004c97"
                       stroke="#ffffff"
                       strokeWidth={1.4 / Math.sqrt(zoom)}
                     />
@@ -327,7 +368,7 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
                       y={-sz - 4 / Math.sqrt(zoom)}
                       textAnchor="middle"
                       fontSize={9 / Math.sqrt(zoom)}
-                      className="fill-zinc-900 dark:fill-zinc-100 font-mono-num font-bold pointer-events-none"
+                      className="fill-zinc-900 dark:fill-zinc-100 font-sub font-bold pointer-events-none"
                     >
                       {t.tbbm_id}
                     </text>
@@ -338,38 +379,38 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
         </svg>
 
         {/* Zoom Controls */}
-        <div className="absolute bottom-3 right-3 flex items-center gap-1 bg-white/95 dark:bg-zinc-900/95 border border-zinc-200 dark:border-zinc-800 rounded-lg p-1 shadow-sm">
+        <div className="absolute bottom-3 right-3 flex items-center gap-1 bg-white/95 dark:bg-[#12161c]/95 border border-[var(--border-hairline)] rounded-full p-1 shadow-sm">
           <button
             onClick={() => setZoom((z) => Math.min(4, Number((z + 0.4).toFixed(1))))}
             aria-label="Perbesar peta"
-            className="p-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+            className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
           >
             <Plus className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setZoom((z) => Math.max(1, Number((z - 0.4).toFixed(1))))}
             aria-label="Perkecil peta"
-            className="p-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+            className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={handleResetView}
             aria-label="Reset tampilan peta"
-            className="p-1.5 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+            className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* Legend */}
-        <div className="absolute bottom-3 left-3 hidden sm:flex flex-wrap items-center gap-3 bg-white/95 dark:bg-zinc-900/95 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-[11px] text-zinc-600 dark:text-zinc-300">
+        <div className="absolute bottom-3 left-3 hidden sm:flex flex-wrap items-center gap-3 bg-white/95 dark:bg-[#12161c]/95 border border-[var(--border-hairline)] rounded-full px-3.5 py-1.5 text-[11px] font-sub text-zinc-700 dark:text-zinc-300">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-[#0057b8] border border-white inline-block" />
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-[#004c97] border border-white inline-block" />
             7 TBBM
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-[#e11d48] inline-block" />
             Tier 1 Kritis
           </span>
           <span className="inline-flex items-center gap-1.5">
@@ -377,20 +418,19 @@ export function EastJavaMap({ regime, selection, onSelect }: EastJavaMapProps) {
             Tier 2 Peak
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" />
             Resilien
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="text-red-500 font-bold leading-none">▲</span>
-            18 Isolated Bottleneck (-1)
+            <span className="text-[#c81e1e] font-bold leading-none">▲</span>
+            18 Bottleneck (-1)
           </span>
-          <span className="inline-flex items-center gap-1.5 text-zinc-400">
+          <span className="inline-flex items-center gap-1 text-zinc-400">
             <Maximize2 className="w-3 h-3" />
-            Klik titik untuk inspeksi
+            Klik titik
           </span>
         </div>
       </div>
     </div>
   );
 }
-

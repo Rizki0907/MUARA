@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CommandPalette } from './components/layout/CommandPalette';
-import { Sidebar } from './components/layout/Sidebar';
-import { TopBar } from './components/layout/TopBar';
+import { TopNav } from './components/layout/TopNav';
 import { BenchmarksView } from './components/views/BenchmarksView';
 import { EconomicsEsgView } from './components/views/EconomicsEsgView';
 import { OverviewView } from './components/views/OverviewView';
@@ -15,8 +14,6 @@ export function App() {
   const { theme, toggleTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<NavTabId>('overview');
   const [regime, setRegime] = useState<PeriodRegime>('normal');
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [selection, setSelection] = useState<MapSelection | null>({
     type: 'cluster',
@@ -36,56 +33,81 @@ export function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
+  const handleSelectTab = (tab: NavTabId) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handlePaletteSelect = (sel: MapSelection, tab?: NavTabId) => {
     setSelection(sel);
-    if (tab) setActiveTab(tab);
+    if (tab) handleSelectTab(tab);
   };
 
   const handleInspectOnMap = (sel: MapSelection) => {
     setSelection(sel);
-    setActiveTab('overview');
+    handleSelectTab('overview');
   };
 
   return (
-    <div className="min-h-screen flex bg-[#fafafa] dark:bg-[#09090b] text-zinc-950 dark:text-zinc-50">
-      <Sidebar
+    <div className="min-h-screen flex flex-col bg-[var(--bg-canvas)] text-[var(--text-primary)]">
+      <TopNav
         activeTab={activeTab}
-        onSelectTab={setActiveTab}
-        collapsed={sidebarCollapsed}
-        onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
+        onSelectTab={handleSelectTab}
+        regime={regime}
+        onChangeRegime={setRegime}
         theme={theme}
-        mobileOpen={mobileOpen}
-        onCloseMobile={() => setMobileOpen(false)}
+        onToggleTheme={toggleTheme}
+        onOpenCommandPalette={() => setPaletteOpen(true)}
       />
 
-      <div className="flex-1 min-w-0 flex flex-col">
-        <TopBar
-          activeTab={activeTab}
-          regime={regime}
-          onChangeRegime={setRegime}
-          theme={theme}
-          onToggleTheme={toggleTheme}
-          onOpenCommandPalette={() => setPaletteOpen(true)}
-          onOpenMobileMenu={() => setMobileOpen(true)}
-        />
+      <main className="flex-1 w-full">
+        {activeTab === 'overview' && (
+          <OverviewView
+            regime={regime}
+            selection={selection}
+            onSelect={setSelection}
+            onNavigate={handleSelectTab}
+          />
+        )}
+        {activeTab === 'spatial' && (
+          <SpatialDominoView onInspectMap={handleInspectOnMap} />
+        )}
+        {activeTab === 'rag-routing' && <RagRoutingView />}
+        {activeTab === 'benchmarks' && <BenchmarksView />}
+        {activeTab === 'economics' && <EconomicsEsgView />}
+      </main>
 
-        <main className="flex-1 p-4 lg:p-6 max-w-[1440px] w-full mx-auto">
-          {activeTab === 'overview' && (
-            <OverviewView
-              regime={regime}
-              selection={selection}
-              onSelect={setSelection}
-              onNavigate={setActiveTab}
-            />
-          )}
-          {activeTab === 'spatial' && (
-            <SpatialDominoView onInspectMap={handleInspectOnMap} />
-          )}
-          {activeTab === 'rag-routing' && <RagRoutingView />}
-          {activeTab === 'benchmarks' && <BenchmarksView />}
-          {activeTab === 'economics' && <EconomicsEsgView />}
-        </main>
-      </div>
+      <footer className="border-t border-[var(--border-hairline)] bg-[var(--bg-surface)]">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 py-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 text-xs text-[var(--text-secondary)]">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-3">
+              <img
+                src={theme === 'dark' ? '/brand/logo-dark.png' : '/brand/logo-light.png'}
+                alt="MUARA Wordmark"
+                className="h-5 w-auto object-contain"
+              />
+              <span className="font-sub text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
+                Multi-Tier Urban Adaptive Refueling &amp; Allocation
+              </span>
+            </div>
+            <p className="text-[11px] text-[var(--text-muted)]">
+              Tim Sains Data Universitas Negeri Surabaya (Rizki Piji Fathoni, Muhammad Habib Nur
+              Aiman, Daffa Ahmad Pangreksa, Faishal Muflih Irfanu Tsaqib) · IKMS 2026 PT Pertamina
+              Patra Niaga.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 lg:text-right text-[11px] text-[var(--text-muted)]">
+            <span className="font-mono-num">
+              Dataset: 38 Kab/Kota · 7 TBBM · 920 SPBU (Seed = 42)
+            </span>
+            <span className="hidden sm:inline text-[var(--border-strong)]">|</span>
+            <span>
+              Kredit Foto Lapangan SPBU: Wikimedia Commons (CC BY-SA 3.0 / CC BY-SA 4.0)
+            </span>
+          </div>
+        </div>
+      </footer>
 
       <CommandPalette
         open={paletteOpen}
@@ -97,4 +119,3 @@ export function App() {
 }
 
 export default App;
-
