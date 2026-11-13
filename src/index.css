@@ -37,11 +37,13 @@
     --accent-red: #f64b68;
   }
 
-  html {
+  html,
+  body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-canvas);
     color: var(--text-primary);
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   /* Font 1: Judul / Display */
