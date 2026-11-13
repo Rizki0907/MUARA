@@ -1,0 +1,86 @@
+[
+  {
+    "tbbm_id": "TBBM_01",
+    "name": "Integrated Terminal Surabaya (Tanjung Perak)",
+    "region_corridor": "Metropolis Surabaya-Gresik-Sidoarjo-Mojokerto",
+    "lat": -7.2066,
+    "lon": 112.7289,
+    "capacity_kl": 185000,
+    "fleet_count": 145,
+    "truck_16kl": 30,
+    "truck_24kl": 65,
+    "truck_32kl": 50
+  },
+  {
+    "tbbm_id": "TBBM_02",
+    "name": "Fuel Terminal Tuban",
+    "region_corridor": "Pantura Barat (Tuban-Lamongan-Bojonegoro)",
+    "lat": -6.7905,
+    "lon": 111.9056,
+    "capacity_kl": 120000,
+    "fleet_count": 65,
+    "truck_16kl": 15,
+    "truck_24kl": 30,
+    "truck_32kl": 20
+  },
+  {
+    "tbbm_id": "TBBM_03",
+    "name": "Fuel Terminal Malang",
+    "region_corridor": "Malang Raya-Pasuruan-Probolinggo",
+    "lat": -7.9944,
+    "lon": 112.6328,
+    "capacity_kl": 45000,
+    "fleet_count": 55,
+    "truck_16kl": 18,
+    "truck_24kl": 25,
+    "truck_32kl": 12
+  },
+  {
+    "tbbm_id": "TBBM_04",
+    "name": "Fuel Terminal Madiun",
+    "region_corridor": "Mataraman Barat (Madiun-Ngawi-Magetan-Ponorogo-Pacitan)",
+    "lat": -7.6186,
+    "lon": 111.5239,
+    "capacity_kl": 38000,
+    "fleet_count": 48,
+    "truck_16kl": 14,
+    "truck_24kl": 22,
+    "truck_32kl": 12
+  },
+  {
+    "tbbm_id": "TBBM_05",
+    "name": "Fuel Terminal Kediri",
+    "region_corridor": "Mataraman Tengah (Kediri-Blitar-Tulungagung-Nganjuk-Trenggalek)",
+    "lat": -7.8228,
+    "lon": 112.0118,
+    "capacity_kl": 35000,
+    "fleet_count": 45,
+    "truck_16kl": 15,
+    "truck_24kl": 20,
+    "truck_32kl": 10
+  },
+  {
+    "tbbm_id": "TBBM_06",
+    "name": "Fuel Terminal Camplong (Madura)",
+    "region_corridor": "Pulau Madura via Suramadu (Bangkalan-Sampang-Pamekasan-Sumenep)",
+    "lat": -7.2167,
+    "lon": 113.3214,
+    "capacity_kl": 28000,
+    "fleet_count": 32,
+    "truck_16kl": 14,
+    "truck_24kl": 12,
+    "truck_32kl": 6
+  },
+  {
+    "tbbm_id": "TBBM_07",
+    "name": "Fuel Terminal Tanjung Wangi (Banyuwangi)",
+    "region_corridor": "Tapal Kuda Timur (Banyuwangi-Jember-Bondowoso-Situbondo-Lumajang)",
+    "lat": -8.1306,
+    "lon": 114.3986,
+    "capacity_kl": 65000,
+    "fleet_count": 52,
+    "truck_16kl": 14,
+    "truck_24kl": 22,
+    "truck_32kl": 16
+  }
+]

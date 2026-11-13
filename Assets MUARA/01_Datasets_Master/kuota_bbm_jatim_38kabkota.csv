@@ -1,0 +1,39 @@
+bps_code,kabkota_name,admin_type,centroid_lat,centroid_lon,primary_tbbm_id,primary_tbbm_name,population_bps,spbu_count,kuota_pertalite_jbkp_kl_yr,kuota_biosolar_jbt_kl_yr,total_kuota_bbm_subsidi_kl_yr,corridor_pressure_factor
+35.78,Kota Surabaya,Kota,-7.2575,112.7521,TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),2980000,68,651276.8,366343.2,1017620.0,1.25
+35.15,Kab. Sidoarjo,Kabupaten,-7.4478,112.7183,TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),2150000,50,430872.3,299419.7,730292.0,1.22
+35.25,Kab. Gresik,Kabupaten,-7.1566,112.572,TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),1340000,37,274416.2,190696.0,465112.2,1.05
+35.16,Kab. Mojokerto,Kabupaten,-7.545,112.515,TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),1140000,25,169523.5,117804.5,287328.0,0.96
+35.76,Kota Mojokerto,Kota,-7.4722,112.4336,TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),140000,10,75088.4,42237.2,117325.6,0.98
+35.17,Kab. Jombang,Kabupaten,-7.556,112.235,TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),1330000,27,179271.1,124578.2,303849.3,0.94
+35.23,Kab. Tuban,Kabupaten,-6.945,111.955,TBBM_02,Fuel Terminal Tuban,1210000,33,226102.0,157121.7,383223.7,0.97
+35.24,Kab. Lamongan,Kabupaten,-7.118,112.315,TBBM_02,Fuel Terminal Tuban,1360000,33,230763.9,160361.3,391125.2,0.99
+35.22,Kab. Bojonegoro,Kabupaten,-7.225,111.825,TBBM_02,Fuel Terminal Tuban,1310000,31,208019.5,144555.9,352575.4,0.95
+35.73,Kota Malang,Kota,-7.9666,112.6326,TBBM_03,Fuel Terminal Malang,880000,31,282654.1,158992.9,441647.0,1.19
+35.07,Kab. Malang,Kabupaten,-8.125,112.645,TBBM_03,Fuel Terminal Malang,2680000,43,315878.8,219509.0,535387.8,1.04
+35.79,Kota Batu,Kota,-7.8671,112.5239,TBBM_03,Fuel Terminal Malang,220000,12,92864.4,52236.2,145100.6,1.01
+35.14,Kab. Pasuruan,Kabupaten,-7.725,112.845,TBBM_03,Fuel Terminal Malang,1630000,31,218967.9,152164.1,371132.0,1.0
+35.75,Kota Pasuruan,Kota,-7.6453,112.9075,TBBM_03,Fuel Terminal Malang,210000,10,73556.0,41375.2,114931.2,0.96
+35.13,Kab. Probolinggo,Kabupaten,-7.835,113.315,TBBM_03,Fuel Terminal Malang,1160000,23,154337.0,107251.2,261588.2,0.95
+35.74,Kota Probolinggo,Kota,-7.7543,113.2159,TBBM_03,Fuel Terminal Malang,245000,10,73556.0,41375.2,114931.2,0.96
+35.77,Kota Madiun,Kota,-7.6298,111.5239,TBBM_04,Fuel Terminal Madiun,202000,12,91945.0,51719.0,143664.0,1.0
+35.19,Kab. Madiun,Kabupaten,-7.615,111.635,TBBM_04,Fuel Terminal Madiun,755000,19,127495.8,88598.8,216094.6,0.95
+35.21,Kab. Ngawi,Kabupaten,-7.425,111.385,TBBM_04,Fuel Terminal Madiun,875000,23,155961.6,108380.1,264341.7,0.96
+35.20,Kab. Magetan,Kabupaten,-7.655,111.335,TBBM_04,Fuel Terminal Madiun,680000,17,109272.0,75934.8,185206.8,0.91
+35.02,Kab. Ponorogo,Kabupaten,-7.915,111.485,TBBM_04,Fuel Terminal Madiun,960000,21,136466.4,94832.6,231299.0,0.92
+35.01,Kab. Pacitan,Kabupaten,-8.135,111.165,TBBM_04,Fuel Terminal Madiun,590000,15,97476.0,67737.6,165213.6,0.92
+35.71,Kota Kediri,Kota,-7.8166,112.0114,TBBM_05,Fuel Terminal Kediri,295000,14,109414.5,61545.7,170960.2,1.02
+35.06,Kab. Kediri,Kabupaten,-7.835,112.145,TBBM_05,Fuel Terminal Kediri,1650000,29,200744.1,139500.1,340244.2,0.98
+35.18,Kab. Nganjuk,Kabupaten,-7.585,111.915,TBBM_05,Fuel Terminal Kediri,1115000,23,154337.0,107251.2,261588.2,0.95
+35.04,Kab. Tulungagung,Kabupaten,-8.095,111.905,TBBM_05,Fuel Terminal Kediri,1105000,23,155961.6,108380.1,264341.7,0.96
+35.03,Kab. Trenggalek,Kabupaten,-8.145,111.665,TBBM_05,Fuel Terminal Kediri,735000,15,95357.0,66265.0,161622.0,0.9
+35.05,Kab. Blitar,Kabupaten,-8.135,112.215,TBBM_05,Fuel Terminal Kediri,1235000,23,151087.8,104993.2,256081.0,0.93
+35.72,Kota Blitar,Kota,-8.0983,112.1681,TBBM_05,Fuel Terminal Kediri,152000,10,72789.8,40944.2,113734.0,0.95
+35.26,Kab. Bangkalan,Kabupaten,-7.055,112.925,TBBM_06,Fuel Terminal Camplong (Madura),1075000,21,143883.1,99986.6,243869.7,0.97
+35.27,Kab. Sampang,Kabupaten,-7.085,113.255,TBBM_06,Fuel Terminal Camplong (Madura),980000,15,97476.0,67737.6,165213.6,0.92
+35.28,Kab. Pamekasan,Kabupaten,-7.075,113.505,TBBM_06,Fuel Terminal Camplong (Madura),860000,15,97476.0,67737.6,165213.6,0.92
+35.29,Kab. Sumenep,Kabupaten,-7.005,113.855,TBBM_06,Fuel Terminal Camplong (Madura),1135000,16,100584.0,69897.3,170481.3,0.89
+35.10,Kab. Banyuwangi,Kabupaten,-8.265,114.225,TBBM_07,Fuel Terminal Tanjung Wangi (Banyuwangi),1735000,37,316232.0,219754.4,535986.4,1.21
+35.09,Kab. Jember,Kabupaten,-8.185,113.665,TBBM_07,Fuel Terminal Tanjung Wangi (Banyuwangi),2565000,41,359107.3,249549.2,608656.5,1.24
+35.08,Kab. Lumajang,Kabupaten,-8.125,113.185,TBBM_07,Fuel Terminal Tanjung Wangi (Banyuwangi),1125000,21,136466.4,94832.6,231299.0,0.92
+35.11,Kab. Bondowoso,Kabupaten,-7.935,113.865,TBBM_07,Fuel Terminal Tanjung Wangi (Banyuwangi),785000,17,109272.0,75934.8,185206.8,0.91
+35.12,Kab. Situbondo,Kabupaten,-7.745,114.045,TBBM_07,Fuel Terminal Tanjung Wangi (Banyuwangi),690000,19,134206.1,93261.9,227468.0,1.0

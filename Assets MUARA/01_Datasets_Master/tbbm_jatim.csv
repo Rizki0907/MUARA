@@ -1,0 +1,8 @@
+tbbm_id,name,region_corridor,lat,lon,capacity_kl,fleet_count,truck_16kl,truck_24kl,truck_32kl
+TBBM_01,Integrated Terminal Surabaya (Tanjung Perak),Metropolis Surabaya-Gresik-Sidoarjo-Mojokerto,-7.2066,112.7289,185000,145,30,65,50
+TBBM_02,Fuel Terminal Tuban,Pantura Barat (Tuban-Lamongan-Bojonegoro),-6.7905,111.9056,120000,65,15,30,20
+TBBM_03,Fuel Terminal Malang,Malang Raya-Pasuruan-Probolinggo,-7.9944,112.6328,45000,55,18,25,12
+TBBM_04,Fuel Terminal Madiun,Mataraman Barat (Madiun-Ngawi-Magetan-Ponorogo-Pacitan),-7.6186,111.5239,38000,48,14,22,12
+TBBM_05,Fuel Terminal Kediri,Mataraman Tengah (Kediri-Blitar-Tulungagung-Nganjuk-Trenggalek),-7.8228,112.0118,35000,45,15,20,10
+TBBM_06,Fuel Terminal Camplong (Madura),Pulau Madura via Suramadu (Bangkalan-Sampang-Pamekasan-Sumenep),-7.2167,113.3214,28000,32,14,12,6
+TBBM_07,Fuel Terminal Tanjung Wangi (Banyuwangi),Tapal Kuda Timur (Banyuwangi-Jember-Bondowoso-Situbondo-Lumajang),-8.1306,114.3986,65000,52,14,22,16

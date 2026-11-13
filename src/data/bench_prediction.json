@@ -1,0 +1,93 @@
+[
+  {
+    "Model_Rank": 1,
+    "Model_Family": "Physics-Informed Gradient Boosting",
+    "Model_Name": "Spatio-Temporal XGBoost + Huff Spillover + CI (Model Terpilih MUARA)",
+    "RMSE_Depletion_KL_Hr": 0.214,
+    "RMSE_TTD_Hours": 2.391,
+    "RMSE_TTD_Minutes": 143.5,
+    "MAE_TTD_Hours": 1.266,
+    "MAPE_Percent": 8.61,
+    "R2_Score": 0.9759,
+    "Inference_Latency_ms": 11.2,
+    "Key_Diagnostic": "TERBAIK: Error terendah (RMSE 2,391 jam / 143,5 menit, R2=0,9759) & inferensi real-time 11,2 ms (12,7x lebih cepat dari Bi-LSTM)"
+  },
+  {
+    "Model_Rank": 2,
+    "Model_Family": "Deep Learning Sequence",
+    "Model_Name": "Bidirectional LSTM (2-Layer, 64 Hidden Units, 24h Window)",
+    "RMSE_Depletion_KL_Hr": 0.236,
+    "RMSE_TTD_Hours": 2.512,
+    "RMSE_TTD_Minutes": 150.7,
+    "MAE_TTD_Hours": 1.348,
+    "MAPE_Percent": 9.18,
+    "R2_Score": 0.9734,
+    "Inference_Latency_ms": 142.0,
+    "Key_Diagnostic": "Mampu menangkap memori sekuensial 24 jam, namun waktu inferensi 12,7x lebih lambat & kurang interpretabel"
+  },
+  {
+    "Model_Rank": 3,
+    "Model_Family": "Gradient Boosting",
+    "Model_Name": "CatBoost Regressor (Symmetric Trees, depth=6)",
+    "RMSE_Depletion_KL_Hr": 0.248,
+    "RMSE_TTD_Hours": 2.68,
+    "RMSE_TTD_Minutes": 160.8,
+    "MAE_TTD_Hours": 1.435,
+    "MAPE_Percent": 9.72,
+    "R2_Score": 0.9697,
+    "Inference_Latency_ms": 14.5,
+    "Key_Diagnostic": "Stabil pada fitur kategorikal kelas jalan, tetapi latensi dan RMSE masih di atas Spatio-Temporal XGBoost"
+  },
+  {
+    "Model_Rank": 4,
+    "Model_Family": "Gradient Boosting",
+    "Model_Name": "LightGBM Regressor (Leaf-wise, num_leaves=31)",
+    "RMSE_Depletion_KL_Hr": 0.264,
+    "RMSE_TTD_Hours": 2.845,
+    "RMSE_TTD_Minutes": 170.7,
+    "MAE_TTD_Hours": 1.542,
+    "MAPE_Percent": 10.45,
+    "R2_Score": 0.9658,
+    "Inference_Latency_ms": 8.6,
+    "Key_Diagnostic": "Sangat cepat, namun sedikit rentan overfitting pada SPBU outlier berpopulasi rendah"
+  },
+  {
+    "Model_Rank": 5,
+    "Model_Family": "Bagging Tree Ensemble",
+    "Model_Name": "Random Forest Regressor (200 Trees, Spatial Only)",
+    "RMSE_Depletion_KL_Hr": 0.428,
+    "RMSE_TTD_Hours": 4.928,
+    "RMSE_TTD_Minutes": 295.7,
+    "MAE_TTD_Hours": 2.708,
+    "MAPE_Percent": 17.48,
+    "R2_Score": 0.8975,
+    "Inference_Latency_ms": 28.4,
+    "Key_Diagnostic": "Akurasi cukup baik pada hari normal, namun under-predict saat terjadi efek domino berantai"
+  },
+  {
+    "Model_Rank": 6,
+    "Model_Family": "Linear Regularized",
+    "Model_Name": "Ridge Regression (L2 Penalty, alpha=1.0)",
+    "RMSE_Depletion_KL_Hr": 0.615,
+    "RMSE_TTD_Hours": 7.145,
+    "RMSE_TTD_Minutes": 428.7,
+    "MAE_TTD_Hours": 4.21,
+    "MAPE_Percent": 21.85,
+    "R2_Score": 0.7842,
+    "Inference_Latency_ms": 1.8,
+    "Key_Diagnostic": "Tidak mampu menangkap interaksi non-linear antara peluruhan jarak gravitasi Huff dan siklus diurnal"
+  },
+  {
+    "Model_Rank": 7,
+    "Model_Family": "Baseline Operasional",
+    "Model_Name": "Historical Moving Average (Single-Silo)",
+    "RMSE_Depletion_KL_Hr": 0.842,
+    "RMSE_TTD_Hours": 10.017,
+    "RMSE_TTD_Minutes": 601.0,
+    "MAE_TTD_Hours": 5.984,
+    "MAPE_Percent": 28.94,
+    "R2_Score": 0.5766,
+    "Inference_Latency_ms": 1.2,
+    "Key_Diagnostic": "Gagal mendeteksi lonjakan antrean limpahan SPBU tetangga & anomali hujan ERA5"
+  }
+]

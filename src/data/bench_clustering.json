@@ -1,0 +1,52 @@
+[
+  {
+    "Algorithm_Rank": 1,
+    "Clustering_Model": "HDBSCAN + Excess of Mass (Model Terpilih MUARA)",
+    "Clusters_Formed": 38,
+    "Outlier_SPBU_Detected": 18,
+    "Road_Silhouette_Score": 0.678,
+    "Davies_Bouldin_Index_DBI": 0.624,
+    "Spillover_Containment_Ratio_Pct": 94.2,
+    "Operational_Evaluation": "TERBAIK: Silhouette tertinggi (0,678), DBI terendah (0,624), menangkap 94,2% spillover dalam kluster & mendeteksi 18 Isolated Bottleneck SPBU (+20% Safety Buffer)"
+  },
+  {
+    "Algorithm_Rank": 2,
+    "Clustering_Model": "Leiden Graph Community Detection (k-NN Road Graph k=8)",
+    "Clusters_Formed": 36,
+    "Outlier_SPBU_Detected": 0,
+    "Road_Silhouette_Score": 0.594,
+    "Davies_Bouldin_Index_DBI": 0.812,
+    "Spillover_Containment_Ratio_Pct": 88.5,
+    "Operational_Evaluation": "Mengikuti topologi jalan raya dengan baik, namun tidak mengisolasi SPBU bottleneck terpencil (label = -1)"
+  },
+  {
+    "Algorithm_Rank": 3,
+    "Clustering_Model": "OPTICS (xi=0.04, min_samples=10)",
+    "Clusters_Formed": 34,
+    "Outlier_SPBU_Detected": 47,
+    "Road_Silhouette_Score": 0.538,
+    "Davies_Bouldin_Index_DBI": 0.964,
+    "Spillover_Containment_Ratio_Pct": 83.8,
+    "Operational_Evaluation": "Adaptif terhadap variasi kepadatan tetapi batas pemotongan kluster kurang tegas pada koridor arteri memanjang"
+  },
+  {
+    "Algorithm_Rank": 4,
+    "Clustering_Model": "K-Medoids / PAM (k=38, Metric=OSRM Road Distance)",
+    "Clusters_Formed": 38,
+    "Outlier_SPBU_Detected": 0,
+    "Road_Silhouette_Score": 0.486,
+    "Davies_Bouldin_Index_DBI": 1.142,
+    "Spillover_Containment_Ratio_Pct": 78.6,
+    "Operational_Evaluation": "Partisi berbentuk bulat kaku; memaksa SPBU lintas selatan masuk kluster kota tanpa deteksi Single-Point-of-Failure"
+  },
+  {
+    "Algorithm_Rank": 5,
+    "Clustering_Model": "DBSCAN Konvensional (eps=12 km, minPts=8)",
+    "Clusters_Formed": 21,
+    "Outlier_SPBU_Detected": 114,
+    "Road_Silhouette_Score": 0.412,
+    "Davies_Bouldin_Index_DBI": 1.385,
+    "Spillover_Containment_Ratio_Pct": 71.4,
+    "Operational_Evaluation": "Gagal memisahkan aglomerasi padat Surabaya Raya (menggabungkan 4 koridor) & membuang terlalu banyak SPBU pedesaan"
+  }
+]

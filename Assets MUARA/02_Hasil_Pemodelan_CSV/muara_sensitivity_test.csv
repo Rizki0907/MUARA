@@ -1,0 +1,16 @@
+Weight_Scheme,Demand_Scenario,Demand_Multiplier,Spearman_Rank_Correlation_Rho,Rank1_Cluster,Rank2_Cluster,Rank3_Cluster,Rank4_Cluster,Rank5_Cluster,Top1_Score,Top5_Mean_Score,Top5_Consistency_Pct,Model_A_NPV10_Billion_IDR,Model_B_NPV10_Billion_IDR,Model_C_NPV10_Billion_IDR
+"W1_Hybrid_CRITIC_AHP (0.30, 0.30, 0.20, 0.20)",S1_Conservative (-15% Demand Shock),0.85,1.0,CL_36,CL_01,CL_04,CL_34,CL_16,94.55,72.85,100.0,9.97,44.29,72.12
+"W1_Hybrid_CRITIC_AHP (0.30, 0.30, 0.20, 0.20)",S2_Baseline (Normal Expected),1.0,0.9999,CL_36,CL_01,CL_04,CL_34,CL_16,95.02,73.2,100.0,12.85,55.77,92.26
+"W1_Hybrid_CRITIC_AHP (0.30, 0.30, 0.20, 0.20)",S3_Extreme_Shock (+25% Weather/Holiday Surge),1.25,0.9999,CL_36,CL_01,CL_04,CL_34,CL_16,95.81,73.81,100.0,17.64,74.89,125.83
+"W2_Urgency_Heavy (0.40, 0.25, 0.20, 0.15)",S1_Conservative (-15% Demand Shock),0.85,0.9685,CL_36,CL_01,CL_04,CL_34,CL_16,94.8,73.18,100.0,9.97,44.29,72.12
+"W2_Urgency_Heavy (0.40, 0.25, 0.20, 0.15)",S2_Baseline (Normal Expected),1.0,0.9685,CL_36,CL_01,CL_04,CL_34,CL_16,95.3,73.57,100.0,12.85,55.77,92.26
+"W2_Urgency_Heavy (0.40, 0.25, 0.20, 0.15)",S3_Extreme_Shock (+25% Weather/Holiday Surge),1.25,0.9685,CL_36,CL_01,CL_04,CL_34,CL_16,96.13,74.2,100.0,17.64,74.89,125.83
+"W3_Domino_Heavy (0.25, 0.40, 0.20, 0.15)",S1_Conservative (-15% Demand Shock),0.85,0.9829,CL_36,CL_01,CL_04,CL_34,CL_16,94.57,72.49,100.0,9.97,44.29,72.12
+"W3_Domino_Heavy (0.25, 0.40, 0.20, 0.15)",S2_Baseline (Normal Expected),1.0,0.9824,CL_36,CL_01,CL_04,CL_34,CL_16,95.09,72.88,100.0,12.85,55.77,92.26
+"W3_Domino_Heavy (0.25, 0.40, 0.20, 0.15)",S3_Extreme_Shock (+25% Weather/Holiday Surge),1.25,0.9802,CL_36,CL_01,CL_04,CL_34,CL_16,95.95,73.53,100.0,17.64,74.89,125.83
+"W4_Collective_Heavy (0.25, 0.25, 0.35, 0.15)",S1_Conservative (-15% Demand Shock),0.85,0.9667,CL_36,CL_01,CL_04,CL_34,CL_16,94.44,74.24,100.0,9.97,44.29,72.12
+"W4_Collective_Heavy (0.25, 0.25, 0.35, 0.15)",S2_Baseline (Normal Expected),1.0,0.967,CL_36,CL_01,CL_04,CL_34,CL_16,94.91,74.6,100.0,12.85,55.77,92.26
+"W4_Collective_Heavy (0.25, 0.25, 0.35, 0.15)",S3_Extreme_Shock (+25% Weather/Holiday Surge),1.25,0.967,CL_36,CL_01,CL_04,CL_34,CL_16,95.7,75.22,100.0,17.64,74.89,125.83
+"W5_Accessibility_Heavy (0.25, 0.25, 0.15, 0.35)",S1_Conservative (-15% Demand Shock),0.85,0.9676,CL_36,CL_01,CL_04,CL_34,CL_16,94.2,72.4,100.0,9.97,44.29,72.12
+"W5_Accessibility_Heavy (0.25, 0.25, 0.15, 0.35)",S2_Baseline (Normal Expected),1.0,0.9676,CL_36,CL_01,CL_04,CL_34,CL_16,94.59,72.69,100.0,12.85,55.77,92.26
+"W5_Accessibility_Heavy (0.25, 0.25, 0.15, 0.35)",S3_Extreme_Shock (+25% Weather/Holiday Surge),1.25,0.9676,CL_36,CL_01,CL_04,CL_34,CL_16,95.24,73.19,100.0,17.64,74.89,125.83

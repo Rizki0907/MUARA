@@ -1,0 +1,266 @@
+[
+  {
+    "Model_Code": "Model A",
+    "Year": 0,
+    "Nominal_Cash_Flow_Billion_IDR": -2.88,
+    "Discount_Factor_10Pct": 1.0,
+    "Discounted_Cash_Flow_Billion_IDR": -2.88,
+    "Cumulative_NPV_Billion_IDR": -2.88
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 1,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.9091,
+    "Discounted_Cash_Flow_Billion_IDR": 2.33,
+    "Cumulative_NPV_Billion_IDR": -0.55
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 2,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.8264,
+    "Discounted_Cash_Flow_Billion_IDR": 2.12,
+    "Cumulative_NPV_Billion_IDR": 1.56
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 3,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.7513,
+    "Discounted_Cash_Flow_Billion_IDR": 1.92,
+    "Cumulative_NPV_Billion_IDR": 3.49
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 4,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.683,
+    "Discounted_Cash_Flow_Billion_IDR": 1.75,
+    "Cumulative_NPV_Billion_IDR": 5.23
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 5,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.6209,
+    "Discounted_Cash_Flow_Billion_IDR": 1.59,
+    "Cumulative_NPV_Billion_IDR": 6.82
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 6,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.5645,
+    "Discounted_Cash_Flow_Billion_IDR": 1.45,
+    "Cumulative_NPV_Billion_IDR": 8.27
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 7,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.5132,
+    "Discounted_Cash_Flow_Billion_IDR": 1.31,
+    "Cumulative_NPV_Billion_IDR": 9.58
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 8,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.4665,
+    "Discounted_Cash_Flow_Billion_IDR": 1.19,
+    "Cumulative_NPV_Billion_IDR": 10.78
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 9,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.4241,
+    "Discounted_Cash_Flow_Billion_IDR": 1.09,
+    "Cumulative_NPV_Billion_IDR": 11.86
+  },
+  {
+    "Model_Code": "Model A",
+    "Year": 10,
+    "Nominal_Cash_Flow_Billion_IDR": 2.56,
+    "Discount_Factor_10Pct": 0.3855,
+    "Discounted_Cash_Flow_Billion_IDR": 0.99,
+    "Cumulative_NPV_Billion_IDR": 12.85
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 0,
+    "Nominal_Cash_Flow_Billion_IDR": -9.92,
+    "Discount_Factor_10Pct": 1.0,
+    "Discounted_Cash_Flow_Billion_IDR": -9.92,
+    "Cumulative_NPV_Billion_IDR": -9.92
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 1,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.9091,
+    "Discounted_Cash_Flow_Billion_IDR": 9.72,
+    "Cumulative_NPV_Billion_IDR": -0.2
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 2,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.8264,
+    "Discounted_Cash_Flow_Billion_IDR": 8.83,
+    "Cumulative_NPV_Billion_IDR": 8.63
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 3,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.7513,
+    "Discounted_Cash_Flow_Billion_IDR": 8.03,
+    "Cumulative_NPV_Billion_IDR": 16.66
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 4,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.683,
+    "Discounted_Cash_Flow_Billion_IDR": 7.3,
+    "Cumulative_NPV_Billion_IDR": 23.97
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 5,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.6209,
+    "Discounted_Cash_Flow_Billion_IDR": 6.64,
+    "Cumulative_NPV_Billion_IDR": 30.6
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 6,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.5645,
+    "Discounted_Cash_Flow_Billion_IDR": 6.03,
+    "Cumulative_NPV_Billion_IDR": 36.64
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 7,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.5132,
+    "Discounted_Cash_Flow_Billion_IDR": 5.49,
+    "Cumulative_NPV_Billion_IDR": 42.12
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 8,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.4665,
+    "Discounted_Cash_Flow_Billion_IDR": 4.99,
+    "Cumulative_NPV_Billion_IDR": 47.11
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 9,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.4241,
+    "Discounted_Cash_Flow_Billion_IDR": 4.53,
+    "Cumulative_NPV_Billion_IDR": 51.64
+  },
+  {
+    "Model_Code": "Model B",
+    "Year": 10,
+    "Nominal_Cash_Flow_Billion_IDR": 10.69,
+    "Discount_Factor_10Pct": 0.3855,
+    "Discounted_Cash_Flow_Billion_IDR": 4.12,
+    "Cumulative_NPV_Billion_IDR": 55.77
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 0,
+    "Nominal_Cash_Flow_Billion_IDR": -18.4,
+    "Discount_Factor_10Pct": 1.0,
+    "Discounted_Cash_Flow_Billion_IDR": -18.4,
+    "Cumulative_NPV_Billion_IDR": -18.4
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 1,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.9091,
+    "Discounted_Cash_Flow_Billion_IDR": 16.37,
+    "Cumulative_NPV_Billion_IDR": -2.03
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 2,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.8264,
+    "Discounted_Cash_Flow_Billion_IDR": 14.88,
+    "Cumulative_NPV_Billion_IDR": 12.86
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 3,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.7513,
+    "Discounted_Cash_Flow_Billion_IDR": 13.53,
+    "Cumulative_NPV_Billion_IDR": 26.39
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 4,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.683,
+    "Discounted_Cash_Flow_Billion_IDR": 12.3,
+    "Cumulative_NPV_Billion_IDR": 38.69
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 5,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.6209,
+    "Discounted_Cash_Flow_Billion_IDR": 11.18,
+    "Cumulative_NPV_Billion_IDR": 49.87
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 6,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.5645,
+    "Discounted_Cash_Flow_Billion_IDR": 10.17,
+    "Cumulative_NPV_Billion_IDR": 60.04
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 7,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.5132,
+    "Discounted_Cash_Flow_Billion_IDR": 9.24,
+    "Cumulative_NPV_Billion_IDR": 69.28
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 8,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.4665,
+    "Discounted_Cash_Flow_Billion_IDR": 8.4,
+    "Cumulative_NPV_Billion_IDR": 77.68
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 9,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.4241,
+    "Discounted_Cash_Flow_Billion_IDR": 7.64,
+    "Cumulative_NPV_Billion_IDR": 85.32
+  },
+  {
+    "Model_Code": "Model C",
+    "Year": 10,
+    "Nominal_Cash_Flow_Billion_IDR": 18.01,
+    "Discount_Factor_10Pct": 0.3855,
+    "Discounted_Cash_Flow_Billion_IDR": 6.94,
+    "Cumulative_NPV_Billion_IDR": 92.26
+  }
+]

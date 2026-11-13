@@ -1,0 +1,6 @@
+Algorithm_Rank,Clustering_Model,Clusters_Formed,Outlier_SPBU_Detected,Road_Silhouette_Score,Davies_Bouldin_Index_DBI,Spillover_Containment_Ratio_Pct,Operational_Evaluation
+1,HDBSCAN + Excess of Mass (Model Terpilih MUARA),38,18,0.678,0.624,94.2,"TERBAIK: Silhouette tertinggi (0,678), DBI terendah (0,624), menangkap 94,2% spillover dalam kluster & mendeteksi 18 Isolated Bottleneck SPBU (+20% Safety Buffer)"
+2,Leiden Graph Community Detection (k-NN Road Graph k=8),36,0,0.594,0.812,88.5,"Mengikuti topologi jalan raya dengan baik, namun tidak mengisolasi SPBU bottleneck terpencil (label = -1)"
+3,"OPTICS (xi=0.04, min_samples=10)",34,47,0.538,0.964,83.8,Adaptif terhadap variasi kepadatan tetapi batas pemotongan kluster kurang tegas pada koridor arteri memanjang
+4,"K-Medoids / PAM (k=38, Metric=OSRM Road Distance)",38,0,0.486,1.142,78.6,Partisi berbentuk bulat kaku; memaksa SPBU lintas selatan masuk kluster kota tanpa deteksi Single-Point-of-Failure
+5,"DBSCAN Konvensional (eps=12 km, minPts=8)",21,114,0.412,1.385,71.4,Gagal memisahkan aglomerasi padat Surabaya Raya (menggabungkan 4 koridor) & membuang terlalu banyak SPBU pedesaan

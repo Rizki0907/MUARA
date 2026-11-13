@@ -1,0 +1,58 @@
+[
+  {
+    "Dimension_Code": "U",
+    "Dimension_Name": "Urgensi Stok Tangki Pendam (Stock Urgency)",
+    "CRITIC_Std_Sigma": 0.248,
+    "CRITIC_Conflict_Sum": 1.585,
+    "CRITIC_Info_Content_C": 0.3931,
+    "Weight_Equal": 0.25,
+    "Weight_CRITIC_Objective": 0.2724,
+    "Weight_AHP_Operational": 0.3182,
+    "Weight_Hybrid_Exact": 0.2953,
+    "Weight_MUARA_Calibrated": 0.3,
+    "AHP_Consistency_Ratio_CR": 0.0042,
+    "Spearman_Rho_vs_Hybrid": 1.0
+  },
+  {
+    "Dimension_Code": "D",
+    "Dimension_Name": "Dampak Domino Spillover (Spatial Gravity Centrality)",
+    "CRITIC_Std_Sigma": 0.254,
+    "CRITIC_Conflict_Sum": 1.58,
+    "CRITIC_Info_Content_C": 0.4013,
+    "Weight_Equal": 0.25,
+    "Weight_CRITIC_Objective": 0.2781,
+    "Weight_AHP_Operational": 0.3182,
+    "Weight_Hybrid_Exact": 0.2981,
+    "Weight_MUARA_Calibrated": 0.3,
+    "AHP_Consistency_Ratio_CR": 0.0042,
+    "Spearman_Rho_vs_Hybrid": 0.9952
+  },
+  {
+    "Dimension_Code": "C",
+    "Dimension_Name": "Intensitas Sinyal Collective Intelligence (SPBU & AMT)",
+    "CRITIC_Std_Sigma": 0.212,
+    "CRITIC_Conflict_Sum": 1.425,
+    "CRITIC_Info_Content_C": 0.3021,
+    "Weight_Equal": 0.25,
+    "Weight_CRITIC_Objective": 0.2093,
+    "Weight_AHP_Operational": 0.1818,
+    "Weight_Hybrid_Exact": 0.1956,
+    "Weight_MUARA_Calibrated": 0.2,
+    "AHP_Consistency_Ratio_CR": 0.0042,
+    "Spearman_Rho_vs_Hybrid": 0.9958
+  },
+  {
+    "Dimension_Code": "A",
+    "Dimension_Name": "Kerentanan Aksesibilitas & Lead-Time TBBM",
+    "CRITIC_Std_Sigma": 0.218,
+    "CRITIC_Conflict_Sum": 1.59,
+    "CRITIC_Info_Content_C": 0.3466,
+    "Weight_Equal": 0.25,
+    "Weight_CRITIC_Objective": 0.2402,
+    "Weight_AHP_Operational": 0.1818,
+    "Weight_Hybrid_Exact": 0.211,
+    "Weight_MUARA_Calibrated": 0.2,
+    "AHP_Consistency_Ratio_CR": 0.0042,
+    "Spearman_Rho_vs_Hybrid": 0.9853
+  }
+]

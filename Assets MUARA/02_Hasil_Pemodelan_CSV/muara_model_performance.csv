@@ -1,0 +1,8 @@
+Model_Rank,Model_Family,Model_Name,RMSE_Depletion_KL_Hr,RMSE_TTD_Hours,RMSE_TTD_Minutes,MAE_TTD_Hours,MAPE_Percent,R2_Score,Inference_Latency_ms,Key_Diagnostic
+1,Physics-Informed Gradient Boosting,Spatio-Temporal XGBoost + Huff Spillover + CI (Model Terpilih MUARA),0.214,2.391,143.5,1.266,8.61,0.9759,11.2,"TERBAIK: Error terendah (RMSE 2,391 jam / 143,5 menit, R2=0,9759) & inferensi real-time 11,2 ms (12,7x lebih cepat dari Bi-LSTM)"
+2,Deep Learning Sequence,"Bidirectional LSTM (2-Layer, 64 Hidden Units, 24h Window)",0.236,2.512,150.7,1.348,9.18,0.9734,142.0,"Mampu menangkap memori sekuensial 24 jam, namun waktu inferensi 12,7x lebih lambat & kurang interpretabel"
+3,Gradient Boosting,"CatBoost Regressor (Symmetric Trees, depth=6)",0.248,2.68,160.8,1.435,9.72,0.9697,14.5,"Stabil pada fitur kategorikal kelas jalan, tetapi latensi dan RMSE masih di atas Spatio-Temporal XGBoost"
+4,Gradient Boosting,"LightGBM Regressor (Leaf-wise, num_leaves=31)",0.264,2.845,170.7,1.542,10.45,0.9658,8.6,"Sangat cepat, namun sedikit rentan overfitting pada SPBU outlier berpopulasi rendah"
+5,Bagging Tree Ensemble,"Random Forest Regressor (200 Trees, Spatial Only)",0.428,4.928,295.7,2.708,17.48,0.8975,28.4,"Akurasi cukup baik pada hari normal, namun under-predict saat terjadi efek domino berantai"
+6,Linear Regularized,"Ridge Regression (L2 Penalty, alpha=1.0)",0.615,7.145,428.7,4.21,21.85,0.7842,1.8,Tidak mampu menangkap interaksi non-linear antara peluruhan jarak gravitasi Huff dan siklus diurnal
+7,Baseline Operasional,Historical Moving Average (Single-Silo),0.842,10.017,601.0,5.984,28.94,0.5766,1.2,Gagal mendeteksi lonjakan antrean limpahan SPBU tetangga & anomali hujan ERA5

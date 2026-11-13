@@ -1,0 +1,23 @@
+[
+  {
+    "doc_id": "SOP-PPN-JTB-01",
+    "category": "Protokol Alih Suplai Darat Lintas TBBM (Cross-Terminal Supply Diversion)",
+    "trigger_condition": "TTD Kluster Tier 1 < Lead Time TBBM Utama + 2.0 Jam & Indeks Kemacetan > 1.8",
+    "action_protocol": "Aktifkan alih suplai otomatis via jalur darat/tol dari TBBM penyangga terdekat (mis. FT Malang mem-backup Sidoarjo Selatan/Pandaan; IT Surabaya mem-backup Bangkalan via Jembatan Suramadu). Prioritaskan mobil tangki 24/32 KL multi-drop.",
+    "hsse_rule": "Wajib verifikasi sisa jam kerja AMT <= 8 jam dan jeda settling tangki pendam 45 menit sebelum buka layanan."
+  },
+  {
+    "doc_id": "SOP-PPN-JTB-02",
+    "category": "Mitigasi Efek Domino Stockout & Isolated Bottleneck SPBU (Label = -1)",
+    "trigger_condition": "SPBU Utama stok < 12% (radius tetangga <= 15 menit) atau Isolated Bottleneck SPBU stok menyentuh 30% (10% dasar + 20% Safety Buffer)",
+    "action_protocol": "Kirimkan pre-emptive dispatch ke SPBU penyangga dengan probabilitas gravitasi Huff P(i->j) tertinggi; khusus Isolated Bottleneck SPBU (jalur lintas selatan Pacitan/Trenggalek & Situbondo), kunci pengiriman prioritas sebelum stok menyentuh 30% kapasitas.",
+    "hsse_rule": "Pastikan kelas jalan SPBU kompatibel dengan tonase truk tangki (16 KL untuk jalan kolektor/pegunungan)."
+  },
+  {
+    "doc_id": "CI-FIELD-LOG-104",
+    "category": "Laporan Bottom-Up Awak Mobil Tangki (AMT) & Operator SPBU",
+    "trigger_condition": "Anomali Cuaca Ekstrem ERA5 (> 15 mm/jam) & Hambatan Lajur Arteri Pantura/Porong/Gumitir",
+    "action_protocol": "RAG Dispatcher Copilot menggabungkan laporan waktu-nyata AMT dan operator SPBU dengan matriks OSRM dinamis untuk menghitung ulang jendela waktu kedatangan (Time Window) CVRPTW secara real-time.",
+    "hsse_rule": "Dilarang melintasi genangan > 30 cm atau jalur rawan longsor saat hujan ekstrem; alihkan melalui koridor tol Trans-Jawa."
+  }
+]

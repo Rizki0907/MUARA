@@ -1,0 +1,46 @@
+[
+  {
+    "Method_Rank": 1,
+    "Routing_Method": "MILP OR-Tools CVRPTW + Guided Local Search + RAG Dispatcher (MUARA Model C)",
+    "Solver_Paradigm": "Exact Time-Window MILP + Dynamic CI/RAG Re-Routing",
+    "Cascading_Stockout_Reduction_Pct": 91.4,
+    "Emergency_Km_Saved_Per_Yr": 782500,
+    "Fleet_Compartment_Utilization_Pct": 94.8,
+    "Total_Annual_Logistics_OPEX_Billion_IDR": 3.84,
+    "AMT_Shift_Violation_Rate_Pct": 0.0,
+    "Operational_Summary": "TERBAIK: Reduksi cascading stockout 91,4%, hemat 782.500 km/thn, utilisasi kompartemen 94,8%, dan 100% patuh shift AMT <= 8 jam"
+  },
+  {
+    "Method_Rank": 2,
+    "Routing_Method": "Genetic Algorithm Metaheuristic VRP (Pop=100, Gen=250)",
+    "Solver_Paradigm": "Evolutionary Global Search (Tanpa Kendala RAG Real-Time)",
+    "Cascading_Stockout_Reduction_Pct": 68.2,
+    "Emergency_Km_Saved_Per_Yr": 485000,
+    "Fleet_Compartment_Utilization_Pct": 86.4,
+    "Total_Annual_Logistics_OPEX_Billion_IDR": 10.52,
+    "AMT_Shift_Violation_Rate_Pct": 1.9,
+    "Operational_Summary": "Rute multi-drop efisien (setara Model B), tetapi belum merespons anomali jalan AMT & SOP lintas-TBBM"
+  },
+  {
+    "Method_Rank": 3,
+    "Routing_Method": "Greedy Nearest-Neighbor Heuristic VRP",
+    "Solver_Paradigm": "Local Distance Minimization (Myopic)",
+    "Cascading_Stockout_Reduction_Pct": 46.8,
+    "Emergency_Km_Saved_Per_Yr": 298500,
+    "Fleet_Compartment_Utilization_Pct": 76.5,
+    "Total_Annual_Logistics_OPEX_Billion_IDR": 15.4,
+    "AMT_Shift_Violation_Rate_Pct": 6.8,
+    "Operational_Summary": "Memilih SPBU terdekat secara lokal namun sering terlambat mengejar jendela TTD di ujung koridor"
+  },
+  {
+    "Method_Rank": 4,
+    "Routing_Method": "Reactive First-Come First-Served (FCFS - Baseline Model A)",
+    "Solver_Paradigm": "Static Single-Drop Dispatch (<15% Threshold)",
+    "Cascading_Stockout_Reduction_Pct": 24.5,
+    "Emergency_Km_Saved_Per_Yr": 125400,
+    "Fleet_Compartment_Utilization_Pct": 64.2,
+    "Total_Annual_Logistics_OPEX_Billion_IDR": 19.85,
+    "AMT_Shift_Violation_Rate_Pct": 11.4,
+    "Operational_Summary": "Armada dikirim reaktif satu per satu saat tangki kritis; biaya lembur AMT & km darurat tinggi"
+  }
+]
